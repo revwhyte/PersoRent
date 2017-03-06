@@ -1,0 +1,68 @@
+.track {
+    width: 10px;
+    background: rgba(0, 0, 0, 0);
+    margin-right: 2px;
+    border-radius: 10px;
+    -webkit-transition: background 250ms linear;
+    transition: background 250ms linear;
+}
+
+.track:hover,
+.track.dragging {
+    background: #d9d9d9; 
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.handle {
+    width: 7px;
+    right: 0;
+    background: #fff;
+    background: rgba(255, 255, 255, 255.4);
+    border-radius: 7px;
+    -webkit-transition: width 250ms;
+    transition: width 250ms;
+}
+
+.track:hover .handle,
+.track.dragging .handle {
+    width: 10px;
+}/*
+.container { 
+    padding-top: 70px; 
+}*/
+
+#imagemAdicionar, #imagemBuscar{
+    cursor: pointer;
+}
+/*bootstrap override*/
+/*.container {
+    padding-right: 5px;
+    padding-left: 20px;
+}*/
+
+.form-horizontal {
+    display: block;
+    margin: auto;
+    border: 10px;
+    padding: 15px;
+}
+
+.form-horizontal .control-label {
+    text-align: center;
+}
+
+.navbar-fixed-bottom{
+    border-bottom: 0px;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #3a3f44;
+}
+
+.footer p{
+    margin: 20px;
+}
