@@ -1,6 +1,8 @@
-<center>
+<?php 
+/*<center>
 	<div width="100%">imagem</div>
-</center>
+</center>*/
+?>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
     	<div class="navbar-header">

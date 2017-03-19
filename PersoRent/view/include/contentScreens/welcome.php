@@ -29,9 +29,9 @@
 				<h3>Aluguel</h3>
 			</div>
 			<div class="panel-body">				
-				<button class="botaoWelcome btn btn-success" value="addRent">Adicionar</button>
-				<button class="botaoWelcome btn btn-default" value="editRent">Editar</button>
-				<button class="botaoWelcome btn btn-danger" value="delRent">Deletar</button>
+				<button class="botaoWelcome btn btn-info" value="addRent">Aluguel</button>
+				<button class="botaoWelcome btn btn-primary" value="editRent">Editar</button>
+				<button class="botaoWelcome btn btn-warning" value="delRent">Devolução</button>
 			</div>
 		</div>
 	</div>
