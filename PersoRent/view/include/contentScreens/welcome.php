@@ -1,37 +1,37 @@
 <div id="welcome">
 	<div class="col-lg-6">
-		<div class="panel panel-default">
+		<div class="panel panel-default" height="50%">
 			<div class="panel-heading">
-				<h3>Cliente</h3>
+				<h3>Cliente <span class="glyphicon glyphicon-user"</h3>
 			</div>
 			<div class="panel-body">
-				<button class="botaoWelcome btn btn-success" value="addClient">Adicionar</button>
-				<button class="botaoWelcome btn btn-default" value="editClient">Editar</button>
-				<button class="botaoWelcome btn btn-danger" value="delClient">Deletar</button>
+				<button class="botaoWelcome btn btn-success" value="addClient">Adicionar <span class="glyphicon glyphicon-plus"></button>
+				<button class="botaoWelcome btn btn-default" value="editClient">Editar <span class="glyphicon glyphicon-edit"></button>
+				<button class="botaoWelcome btn btn-danger" value="delClient">Deletar <span class="glyphicon glyphicon-remove-circle"></button>
 			</div>
 		</div>
 	</div>
 	<div class="col-lg-6">		
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3>Veículo</h3>
+				<h3>Veículo <span class="glyphicon glyphicon-road"></h3>
 			</div>
 			<div class="panel-body">				
-				<button class="botaoWelcome btn btn-success" value="addVehicle">Adicionar</button>
-				<button class="botaoWelcome btn btn-default" value="editVehicle">Editar</button>
-				<button class="botaoWelcome btn btn-danger" value="delVehicle">Deletar</button>
+				<button class="botaoWelcome btn btn-success" value="addVehicle">Adicionar <span class="glyphicon glyphicon-plus"></button>
+				<button class="botaoWelcome btn btn-default" value="editVehicle">Editar <span class="glyphicon glyphicon-edit"></button>
+				<button class="botaoWelcome btn btn-danger" value="delVehicle">Deletar <span class="glyphicon glyphicon-remove-circle"></button>
 			</div>
 		</div>
 	</div>
 	<div class="col-lg-12">		
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3>Aluguel</h3>
+				<h3>Aluguel <span class="glyphicon glyphicon-transfer"></h3>
 			</div>
 			<div class="panel-body">				
-				<button class="botaoWelcome btn btn-info" value="addRent">Aluguel</button>
-				<button class="botaoWelcome btn btn-primary" value="editRent">Editar</button>
-				<button class="botaoWelcome btn btn-warning" value="delRent">Devolução</button>
+				<button class="botaoWelcome btn btn-info" value="addRent">Aluguel <span class="glyphicon glyphicon-piggy-bank"></button>
+				<button class="botaoWelcome btn btn-primary" value="editRent">Editar <span class="glyphicon glyphicon-edit"></button>
+				<button class="botaoWelcome btn btn-warning" value="delRent">Devolução <span class="glyphicon glyphicon-ok-circle"></button>
 			</div>
 		</div>
 	</div>

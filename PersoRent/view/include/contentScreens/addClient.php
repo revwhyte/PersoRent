@@ -91,11 +91,11 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="conta">Conta: </label>				
-							<div class="col-lg-8">
+							<div class="col-lg-7">
 								<input class="form-control" type="text" name="conta" id="conta">
 							</div>				
-							<div class="col-lg-1">
-								<input class="form-control" type="text" name="digito" id="digito">
+							<div class="col-lg-2">
+								<input class="form-control" type="text" name="digito" id="digito" maxlength="1">
 							</div>
 						</div>
 					</div>
@@ -136,7 +136,7 @@
 			agencia:$('#agencia').val(),
 			conta:$('#conta').val(),
 			digito:$('#digito').val(),
-			enderecoAgencia:$('#enderecoAgencia').val(),
+			enderecoAgencia:$('#enderecoAgencia').val()
 		},function(e){
 			$('#result').html(e);
 			$('#formAddCliente')[0].reset();
