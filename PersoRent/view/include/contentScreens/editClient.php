@@ -23,7 +23,7 @@
 		</fieldset>
 	</div>
 	<div class="form-horizontal" id="editarCliente" hidden>
-		<form id="formAddCliente">
+		<form id="formEditCliente">
 			<div class="form-horizontal">
 				<fieldset>
 					<legend>Editar Cliente</legend>
@@ -183,7 +183,7 @@
 					$('#enderecoAgencia').val(aux[11]);
 				});
 			}
-			$('#result').html(e);
+			//$('#result').html(e);
 		});
 	});
 	$('#nomeSearch').on('keyup',function(){
@@ -197,13 +197,13 @@
 				$('#resultBuscar').fadeIn("slow");				
 				$('#resultBuscar').html(e);
 			}
-			$('#result').html(e);
+			//$('#result').html(e);
 		});
-	});
-	$('.pessoa').on('click',function(){
-		$('#nomeSearch').val("");alert('ue');
-		$('#resultBuscar').fadeOut("slow");
-		$.post('../controller/teste.php', {cpf:this.attr('id')},function(e){
+	});	
+	function escolha(cpf){
+		$('#nomeSearch').val("");
+		$('#resultBuscar').fadeOut("slow");//alert(cpf);
+		$.post('../controller/teste.php', {cpf:cpf},function(e){
 			if (e=='') {
 				$('#editarCliente').fadeOut("slow");
 			}
@@ -225,8 +225,28 @@
 					$('#enderecoAgencia').val(aux[11]);
 				});
 			}
+			//$('#result').html(e);
+		});
+	};	
+	$('#editarCliente').on('click',function(){
+		$.post('../controller/teste.php', {
+			nome:$('#nome').val(),
+			rg:$('#rg').val(),
+			cpf:$('#cpf').val(),
+			cep:$('#cep').val(),
+			endereco:$('#endereco').val(),
+			nSerie:$('#nSerie').val(),
+			categoria:$('#categoria').val(),
+			validade:$('#validade').val(),
+			agencia:$('#agencia').val(),
+			conta:$('#conta').val(),
+			digito:$('#digito').val(),
+			enderecoAgencia:$('#enderecoAgencia').val()
+		},function(e){
 			$('#result').html(e);
+			//$('#formEditCliente')[0].reset();
 		});
 	});
+
 	</script>
 </div>
