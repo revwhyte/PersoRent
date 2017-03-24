@@ -95,7 +95,7 @@
             try {
                 $sth = $dbh->prepare("UPDATE veiculo SET marca = :marca, modelo = :modelo, ano = :ano, placa = :placa, odometro = :odometro, chassi = :chassi, cor = :cor, portas = :portas, arCondicionado = :arCondicionado, direcao = :direcao, combustivel = :combustivel, potencia = :potencia, avarias = :avarias, status = :status WHERE chassi = :chassi");
 
-                 $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
+                $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
                 $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
                 $sth->bindParam(":ano", $this->ano, PDO::PARAM_INT);
                 $sth->bindParam(":placa", $this->placa, PDO::PARAM_STR);
@@ -117,11 +117,11 @@
             }
         }
 
-        public function removeDadosBancarios($dbh) {
+        public function removeVeiculo($dbh) {
             try {
                 $sth = $dbh->prepare("DELETE FROM veiculo WHERE chassi = :chassi");
 
-                 $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
+                $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
                 $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
                 $sth->bindParam(":ano", $this->ano, PDO::PARAM_INT);
                 $sth->bindParam(":placa", $this->placa, PDO::PARAM_STR);
