@@ -118,8 +118,8 @@
 					</div>
 				</div>	
 				<div class="row">
-					<div class="col-lg-2">						
-						<button class="btn btn-default" id="voltar" value="voltar">Voltar</button>	
+					<div class="col-lg-2">
+						<input type="button" class="btn btn-default" id="voltar" value="Voltar">	
 					</div>
 					<div class="col-lg-offset-8 col-lg-2">
 						<input type="button" class="btn btn-success pull-right" id="cadastrarVehicle" value="Cadastrar">
@@ -148,6 +148,11 @@
 		},function(e){
 			$('#result').html(e);
 			$('#formAddVehicle')[0].reset();
+		});
+	});
+	$('#voltar').on('click',function(){
+		$.post('../controller/redireciona.php', {page:this.value},function(e){
+			$('#content').html(e);
 		});
 	});
 	</script>

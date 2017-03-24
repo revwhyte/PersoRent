@@ -29,7 +29,7 @@
 			case 'delRent':				
 				readfile('../view/include/contentScreens/delRent.php');
 				break;
-			case 'voltar':
+			case 'Voltar':
 				readfile('../view/include/contentScreens/welcome.php');
 				break;
 			default:

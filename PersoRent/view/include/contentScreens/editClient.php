@@ -3,23 +3,29 @@
 		<fieldset>
 			<legend>Buscar Cliente</legend>
 			<div class="row">
-					<div class="col-lg-6">
-						<div class="form-group">
-							<label class="control-label col-lg-3" for="nome">Nome: </label>
-							<div class="col-lg-9">
-								<input class="form-control" type="text" name="nomeSearch" id="nomeSearch" placeholder="Nome completo">
-							</div>
+				<div class="col-lg-6">
+					<div class="form-group">
+						<label class="control-label col-lg-3" for="nome">Nome: </label>
+						<div class="col-lg-9">
+							<input class="form-control" type="text" name="nomeSearch" id="nomeSearch" placeholder="Nome completo">
 						</div>
 					</div>
-					<div class="col-lg-6">
-						<div class="form-group">
-							<label class="control-label col-lg-3" for="cpf">CPF: </label>
-							<div class="col-lg-9">
-								<input class="form-control" type="text" name="cpfSearch" id="cpfSearch">
-							</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="form-group">
+						<label class="control-label col-lg-3" for="cpf">CPF: </label>
+						<div class="col-lg-9">
+							<input class="form-control" type="text" name="cpfSearch" id="cpfSearch">
 						</div>
 					</div>
-				</div>	
+				</div>				
+				<div class="row">
+					<br>
+					<div class="col-lg-2">						
+						<input type="button" class="btn btn-default" id="voltar" value="Voltar">
+					</div>
+				</div>
+			</div>
 		</fieldset>
 	</div>
 	<div class="form-horizontal" id="editarCliente" hidden>
@@ -139,8 +145,8 @@
 							<input type="button" class="btn btn-default" id="cancelar" value="Cancelar">
 						</div>
 						<div class="col-lg-offset-8 col-lg-2">
-							<input type="button" class="btn btn-success pull-right" id="editarCliente" value="Editar">
-						</div>
+							<input type="button" class="btn btn-success pull-right" id="botaoEditarCliente" value="Editar">
+						</div>						
 					</div>			
 				</fieldset>
 			</div>	
@@ -228,7 +234,7 @@
 			//$('#result').html(e);
 		});
 	};	
-	$('#editarCliente').on('click',function(){
+	$('#botaoEditarCliente').on('click',function(){
 		$.post('../controller/teste.php', {
 			nome:$('#nome').val(),
 			rg:$('#rg').val(),
@@ -247,6 +253,10 @@
 			//$('#formEditCliente')[0].reset();
 		});
 	});
-
+	$('#voltar').on('click',function(){
+		$.post('../controller/redireciona.php', {page:this.value},function(e){
+			$('#content').html(e);
+		});
+	});
 	</script>
 </div>
