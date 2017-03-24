@@ -41,7 +41,7 @@
                 $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
                 $sth->bindParam(":ano", $this->ano, PDO::PARAM_INT);
                 $sth->bindParam(":placa", $this->placa, PDO::PARAM_STR);
-                $sth->bindParam(":odometro", $this->odometro, PDO::PARAM_LOB);
+                $sth->bindParam(":odometro", $this->odometro, PDO::PARAM_INT);
                 $sth->bindParam(":chassi", $this->chassi, PDO::PARAM_STR);
                 $sth->bindParam(":cor", $this->cor, PDO::PARAM_STR);
                 $sth->bindParam(":portas", $this->portas, PDO::PARAM_INT);
@@ -89,6 +89,62 @@
                 $e->getMessage();
             }
         }
+		
+		
+		 public function atualizaVeiculo($dbh) {
+            try {
+                $sth = $dbh->prepare("UPDATE veiculo SET marca = :marca, modelo = :modelo, ano = :ano, placa = :placa, odometro = :odometro, chassi = :chassi, cor = :cor, portas = :portas, arCondicionado = :arCondicionado, direcao = :direcao, combustivel = :combustivel, potencia = :potencia, avarias = :avarias, status = :status WHERE chassi = :chassi");
+
+                 $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
+                $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
+                $sth->bindParam(":ano", $this->ano, PDO::PARAM_INT);
+                $sth->bindParam(":placa", $this->placa, PDO::PARAM_STR);
+                $sth->bindParam(":odometro", $this->odometro, PDO::PARAM_INT);
+                $sth->bindParam(":chassi", $this->chassi, PDO::PARAM_STR);
+                $sth->bindParam(":cor", $this->cor, PDO::PARAM_STR);
+                $sth->bindParam(":portas", $this->portas, PDO::PARAM_INT);
+                $sth->bindParam(":arCondicionado", $this->arCondicionado, PDO::PARAM_BOOL);
+                $sth->bindParam(":direcao", $this->direcao, PDO::PARAM_BOOL);
+                $sth->bindParam(":combustivel", $this->combustivel, PDO::PARAM_STR);
+                $sth->bindParam(":potencia", $this->potencia, PDO::PARAM_STR);
+                $sth->bindParam(":avarias", $this->avarias, PDO::PARAM_STR);
+                $sth->bindParam(":status", $this->status, PDO::PARAM_BOOL);
+
+                return $sth->execute();
+
+            } catch(PDOException $e) {
+                $e->getMessage();
+            }
+        }
+
+        public function removeDadosBancarios($dbh) {
+            try {
+                $sth = $dbh->prepare("DELETE FROM veiculo WHERE chassi = :chassi");
+
+                 $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
+                $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
+                $sth->bindParam(":ano", $this->ano, PDO::PARAM_INT);
+                $sth->bindParam(":placa", $this->placa, PDO::PARAM_STR);
+                $sth->bindParam(":odometro", $this->odometro, PDO::PARAM_INT);
+                $sth->bindParam(":chassi", $this->chassi, PDO::PARAM_STR);
+                $sth->bindParam(":cor", $this->cor, PDO::PARAM_STR);
+                $sth->bindParam(":portas", $this->portas, PDO::PARAM_INT);
+                $sth->bindParam(":arCondicionado", $this->arCondicionado, PDO::PARAM_BOOL);
+                $sth->bindParam(":direcao", $this->direcao, PDO::PARAM_BOOL);
+                $sth->bindParam(":combustivel", $this->combustivel, PDO::PARAM_STR);
+                $sth->bindParam(":potencia", $this->potencia, PDO::PARAM_STR);
+                $sth->bindParam(":avarias", $this->avarias, PDO::PARAM_STR);
+                $sth->bindParam(":status", $this->status, PDO::PARAM_BOOL);
+
+                return $sth->execute();
+                
+            } catch(PDOException $e) {
+                $e->getMessage();
+            }
+        }
+		
+		
+		
     }
 
 ?>
