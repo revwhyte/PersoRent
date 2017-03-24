@@ -54,9 +54,9 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="control-label col-lg-3" for="nSerie">Numero de Serie: </label>
+							<label class="control-label col-lg-3" for="numero">Numero de Serie: </label>
 							<div class="col-lg-9">							
-								<input class="form-control" type="text" name="nSerie" id="nSerie">
+								<input class="form-control" type="text" name="numero" id="numero">
 							</div>
 						</div>
 					</div>
@@ -124,13 +124,14 @@
 	<div id="result"></div>
 	<script>	
 	$('#cadastrarCliente').on('click',function(){
-		$.post('../controller/teste.php', {
+		$.post('../controller/ClienteController.php', {
+			acao:'adicionar',
 			nome:$('#nome').val(),
 			rg:$('#rg').val(),
 			cpf:$('#cpf').val(),
 			cep:$('#cep').val(),
 			endereco:$('#endereco').val(),
-			nSerie:$('#nSerie').val(),
+			numero:$('#numero').val(),
 			categoria:$('#categoria').val(),
 			validade:$('#validade').val(),
 			agencia:$('#agencia').val(),

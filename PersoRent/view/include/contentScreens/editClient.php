@@ -84,9 +84,9 @@
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label class="control-label col-lg-3" for="nSerie">Numero de Serie: </label>
+								<label class="control-label col-lg-3" for="numero">Numero de Serie: </label>
 								<div class="col-lg-9">							
-									<input class="form-control" type="text" name="nSerie" id="nSerie">
+									<input class="form-control" type="text" name="numero" id="numero">
 								</div>
 							</div>
 						</div>
@@ -180,7 +180,7 @@
 					$('#cpf').val(aux[2]);
 					$('#cep').val(aux[3]);
 					$('#endereco').val(aux[4]);
-					$('#nSerie').val(aux[5]);
+					$('#numero').val(aux[5]);
 					$('#categoria').val(aux[6]);
 					$('#validade').val(aux[7]);
 					$('#agencia').val(aux[8]);
@@ -222,7 +222,7 @@
 					$('#cpf').val(aux[2]);
 					$('#cep').val(aux[3]);
 					$('#endereco').val(aux[4]);
-					$('#nSerie').val(aux[5]);
+					$('#numero').val(aux[5]);
 					$('#categoria').val(aux[6]);
 					$('#validade').val(aux[7]);
 					$('#agencia').val(aux[8]);
@@ -241,7 +241,7 @@
 			cpf:$('#cpf').val(),
 			cep:$('#cep').val(),
 			endereco:$('#endereco').val(),
-			nSerie:$('#nSerie').val(),
+			numero:$('#numero').val(),
 			categoria:$('#categoria').val(),
 			validade:$('#validade').val(),
 			agencia:$('#agencia').val(),

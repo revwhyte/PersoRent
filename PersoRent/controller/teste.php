@@ -62,11 +62,29 @@
 		}
 		else
 			echo '';*/
-		if (isset($_POST['chassi'])&&$_POST['chassi']=='12345678') {
-			echo "1=>2=>3=>4=>5=>6=>7=>2002-02-02=>9=>10=>11=>12=>13";			
+		//testeeditvehicle
+		/*if (isset($_POST['chassi'])&&$_POST['chassi']=='12345678') {
+			echo '1=>2=>3=>4=>5=>6=>7=>2002-02-02=>9=>10=>11=>12=>13';			
 			unset($_POST['chassi']);
 		}
 		else
-			echo '';
+			echo '';*/
+		//testedelvehicle
+		if (isset($_POST['chassi'])&&$_POST['chassi']=='12345678') {
+			echo '
+					<div class="row">
+						<div class="well well-sm col-lg-12" onclick="mostrar(\'12345678\')" id="\'12345678\'">
+							<div class="col-lg-9">
+								<h3>'.'Nome1</h3>
+								CPF: 12345678
+							</div>
+							<div class="col-lg-3" id="div12345678" hidden style="margin-top: auto;margin-bottom: auto;">
+								<input type="button" class="btn btn-default cancelar" onclick="esconder(\'12345678\')" id="canc12345678" value="Cancelar">
+								<input type="button" class="btn btn-danger confirmar" id="conf12345678" value="Confirmar" onclick="deletar(\'12345678\')">
+							</div>
+						</div>
+					</div>';			
+			unset($_POST['chassi']);
+		}
 	}
 ?>
