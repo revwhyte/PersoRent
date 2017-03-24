@@ -9,7 +9,7 @@
         private $odometro;
         private $chassi;
         private $cor;
-        private $qtdPortas;
+        private $portas;
         private $arCondicionado;
         private $direcao;
         private $combustivel;
@@ -25,7 +25,7 @@
             $this->odometro = $dados['odometro'];
             $this->chassi = $dados['chassi'];
             $this->cor = $dados['cor'];
-            $this->qtdPortas = $dados['qtdPortas'];
+            $this->portas = $dados['portas'];
             $this->arCondicionado = $dados['arCondicionado'];
             $this->direcao = $dados['direcao'];
             $this->combustivel = $dados['combustivel'];
@@ -34,9 +34,9 @@
             $this->status = $dados['status'];
         }
 
-        public function criarVeiculo($dbh) {
+        public function criaVeiculo($dbh) {
             try {
-                $sth = $dbh->prepare("INSERT INTO veiculo(marca, modelo, ano, placa, odometro, chassi, cor, qtdPortas, arCondicionado, direcao, combustivel, potencia, avarias, status) VALUES(:marca, :modelo, :ano, :placa, :odometro, :chassi, :cor, :qtdPortas, :arCondicionado, :direcao, :combustivel, :potencia, :avarias, :status)");
+                $sth = $dbh->prepare("INSERT INTO veiculo(marca, modelo, ano, placa, odometro, chassi, cor, portas, arCondicionado, direcao, combustivel, potencia, avarias, status) VALUES(:marca, :modelo, :ano, :placa, :odometro, :chassi, :cor, :portas, :arCondicionado, :direcao, :combustivel, :potencia, :avarias, :status)");
                 
                 $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
                 $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
@@ -45,7 +45,7 @@
                 $sth->bindParam(":odometro", $this->odometro, PDO::PARAM_LOB);
                 $sth->bindParam(":chassi", $this->chassi, PDO::PARAM_STR);
                 $sth->bindParam(":cor", $this->cor, PDO::PARAM_STR);
-                $sth->bindParam(":qtdPortas", $this->qtdPortas, PDO::PARAM_INT);
+                $sth->bindParam(":portas", $this->portas, PDO::PARAM_INT);
                 $sth->bindParam(":arCondicionado", $this->arCondicionado, PDO::PARAM_BOOL);
                 $sth->bindParam(":direcao", $this->direcao, PDO::PARAM_BOOL);
                 $sth->bindParam(":combustivel", $this->combustivel, PDO::PARAM_STR);
@@ -61,9 +61,9 @@
         }
 
         // busca veiculo pelo chassi
-        public static function buscarVeiculoChassi($dbh, $chassi) {
+        public static function buscaVeiculoChassi($dbh, $chassi) {
             try {
-                $sth = $dbh->prepare("SELECT marca, modelo, ano, placa, odometro, chassi, qtdPortas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE chassi = :chassi");
+                $sth = $dbh->prepare("SELECT marca, modelo, ano, placa, odometro, chassi, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE chassi = :chassi");
 
                 $sth->bindParam(":chassi", $chassi, PDO::PARAM_STR);
                 $sth->execute();
@@ -71,6 +71,7 @@
                 $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
                 return $result;
+
             } catch(PDOException $e) {
                 $e->getMessage();
             }
@@ -78,13 +79,14 @@
 
         public static function retornaTodosVeiculos($dbh) {
             try {
-                $sth = $dbh->prepare("SELECT marca, modelo, ano, placa, odometro, chassi, cor, qtdPortas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo");
+                $sth = $dbh->prepare("SELECT marca, modelo, ano, placa, odometro, chassi, cor, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo");
 
                 $sth->execute();
 
                 $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
                 return $result;
+                
             } catch(PDOException $e) {
                 $e->getMessage();
             }
