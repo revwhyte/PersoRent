@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS `persorent`.`cnh` (
   `numero` VARCHAR(12) NOT NULL,
   `categoria` VARCHAR(2) NOT NULL,
   `validade` DATE NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  PRIMARY KEY (`numero`))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `persorent`.`dados_bancarios` (
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `persorent`.`dados_bancarios` (
   `conta` SMALLINT(5) NOT NULL,
   `digito` TINYINT(1) NOT NULL,
   `endereco` VARCHAR(60) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`agencia`, `conta`, `digito`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
@@ -26,22 +26,24 @@ CREATE TABLE IF NOT EXISTS `persorent`.`cliente` (
   `cpf` VARCHAR(11) NOT NULL,
   `endereco` VARCHAR(60) NOT NULL,
   `cep` VARCHAR(8) NOT NULL,
-  `id_banco` INT NOT NULL,
   `id_cnh` INT NOT NULL,
-  PRIMARY KEY (`id`, `id_banco`, `id_cnh`),
+  `dados_bancarios_agencia` SMALLINT(5) NOT NULL,
+  `dados_bancarios_conta` SMALLINT(5) NOT NULL,
+  `dados_bancarios_digito` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`id_cnh`, `cpf`, `dados_bancarios_agencia`, `dados_bancarios_conta`, `dados_bancarios_digito`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC),
   UNIQUE INDEX `rg_UNIQUE` (`rg` ASC),
-  INDEX `fk_cliente_dados_bancarios2_idx` (`id_banco` ASC),
   INDEX `fk_cliente_cnh1_idx` (`id_cnh` ASC),
-  CONSTRAINT `fk_cliente_dados_bancarios2`
-    FOREIGN KEY (`id_banco`)
-    REFERENCES `persorent`.`dados_bancarios` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
+  INDEX `fk_cliente_dados_bancarios1_idx` (`dados_bancarios_agencia` ASC, `dados_bancarios_conta` ASC, `dados_bancarios_digito` ASC),
   CONSTRAINT `fk_cliente_cnh1`
     FOREIGN KEY (`id_cnh`)
     REFERENCES `persorent`.`cnh` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cliente_dados_bancarios1`
+    FOREIGN KEY (`dados_bancarios_agencia` , `dados_bancarios_conta` , `dados_bancarios_digito`)
+    REFERENCES `persorent`.`dados_bancarios` (`agencia` , `conta` , `digito`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -56,18 +58,18 @@ CREATE TABLE IF NOT EXISTS `persorent`.`veiculo` (
   `chassi` VARCHAR(45) NOT NULL,
   `cor` VARCHAR(12) NOT NULL,
   `portas` TINYINT(1) NOT NULL,
-  `ar_condicionado` TINYINT(1) NOT NULL,
+  `arCondicionado` TINYINT(1) NOT NULL,
   `direcao` TINYINT(1) NOT NULL,
   `combustivel` CHAR(1) NOT NULL,
   `potencia` VARCHAR(3) NOT NULL,
-  `avarias` TEXT(300) NOT NULL,
+  `avarias` TEXT(300) NULL,
   `status` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  UNIQUE INDEX `placa_UNIQUE` (`placa` ASC))
+  UNIQUE INDEX `placa_UNIQUE` (`placa` ASC),
+  PRIMARY KEY (`chassi`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `persorent`.`emprestimo` (
+CREATE TABLE IF NOT EXISTS `persorent`.`aluguel` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `data_saida` DATE NOT NULL,
   `data_devolucao` DATE NOT NULL,
@@ -75,20 +77,20 @@ CREATE TABLE IF NOT EXISTS `persorent`.`emprestimo` (
   `multa` FLOAT NULL,
   `novas_avarias` VARCHAR(20) NULL,
   `status` TINYINT(1) NOT NULL,
-  `id_veiculo` INT NOT NULL,
-  `id_cliente` INT NOT NULL,
+  `veiculo_chassi` VARCHAR(45) NOT NULL,
+  `cliente_cpf` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `fk_emprestimo_veiculo1_idx` (`id_veiculo` ASC),
-  INDEX `fk_emprestimo_cliente1_idx` (`id_cliente` ASC),
-  CONSTRAINT `fk_emprestimo_veiculo1`
-    FOREIGN KEY (`id_veiculo`)
-    REFERENCES `persorent`.`veiculo` (`id`)
-    ON DELETE NULL
+  INDEX `fk_aluguel_veiculo1_idx` (`veiculo_chassi` ASC),
+  INDEX `fk_aluguel_cliente1_idx` (`cliente_cpf` ASC),
+  CONSTRAINT `fk_aluguel_veiculo1`
+    FOREIGN KEY (`veiculo_chassi`)
+    REFERENCES `persorent`.`veiculo` (`chassi`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_emprestimo_cliente1`
-    FOREIGN KEY (`id_cliente`)
-    REFERENCES `persorent`.`cliente` (`id`)
-    ON DELETE NULL
+  CONSTRAINT `fk_aluguel_cliente1`
+    FOREIGN KEY (`cliente_cpf`)
+    REFERENCES `persorent`.`cliente` (`cpf`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
