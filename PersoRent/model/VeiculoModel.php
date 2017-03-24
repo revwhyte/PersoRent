@@ -1,5 +1,4 @@
 <?php
-    require_once('Database.php');
 
     class VeiculoModel {
         private $marca;
@@ -60,7 +59,6 @@
             }
         }
 
-        // busca veiculo pelo chassi
         public static function buscaVeiculoChassi($dbh, $chassi) {
             try {
                 $sth = $dbh->prepare("SELECT marca, modelo, ano, placa, odometro, chassi, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE chassi = :chassi");
@@ -86,7 +84,7 @@
                 $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
                 return $result;
-                
+
             } catch(PDOException $e) {
                 $e->getMessage();
             }

@@ -1,7 +1,5 @@
 <?php
     
-    require_once 'Database.php';
-
     class DadosBancariosModel {
         private $agencia;
         private $conta;
@@ -25,7 +23,7 @@
                 $sth->bindParam(":endereco", $this->endereco, PDO::PARAM_STR);
 
                 return $sth->execute();
-                
+
             } catch(PDOException $e) {
                 $e->getMessage();
             }
@@ -52,10 +50,30 @@
 
         public function atualizaDadosBancarios($dbh) {
             try {
-                $sth = $dbh->prepare("");
+                $sth = $dbh->prepare("UPDATE dados_bancarios SET agencia = :agencia, conta = :conta, digito = :digito, endereco = :endereco WHERE agencia = :agencia AND conta = :conta AND digito = :digito");
+
+                $sth->bindParam(":agencia", $this->agencia, PDO::PARAM_INT);
+                $sth->bindParam(":conta", $this->conta, PDO::PARAM_INT);
+                $sth->bindParam(":digito", $this->digito, PDO::PARAM_INT);
+                $sth->bindParam(":endereco", $this->endereco, PDO::PARAM_STR);
 
                 return $sth->execute();
 
+            } catch(PDOException $e) {
+                $e->getMessage();
+            }
+        }
+
+        public function removeDadosBancarios($dbh) {
+            try {
+                $sth = $dbh->prepare("DELETE FROM dados_bancarios WHERE agencia = :agencia AND conta = :conta AND digito = :digito");
+
+                $sth->bindParam(":agencia", $this->agencia, PDO::PARAM_INT);
+                $sth->bindParam(":conta", $this->conta, PDO::PARAM_INT);
+                $sth->bindParam(":digito", $this->digito, PDO::PARAM_INT);
+
+                return $sth->execute();
+                
             } catch(PDOException $e) {
                 $e->getMessage();
             }
