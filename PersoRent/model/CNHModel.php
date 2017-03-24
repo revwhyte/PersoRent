@@ -30,6 +30,37 @@
                 $sth->prepare("SELECT numero, categoria, validade FROM cnh WHERE numero = :numero");
 
                 $sth->bindParam(":numero", $dados['numero'], PDO::PARAM_INT);
+
+                $result = $sth->execute();
+
+                return $result;
+
+            } catch(PDOException $e) {
+                $e->getMessage();
+            }
+        }
+
+        public function atualizaCNH($dbh) {
+            try {
+                $sth = $dbh->prepare("UPDATE cnh SET numero = :numero, categoria = :categoria, validade = :validade WHERE numero = :numero");
+
+                $sth->bindParam(":numero", $this->numero, PDO::PARAM_INT);
+
+                return $sth->execute();
+
+            } catch(PDOException $e) {
+                $e->getMessage();
+            }
+        }
+
+        public function removeCNH($dbh) {
+            try {
+                $sth = $dbh->prepare("DELETE FROM cnh WHERE numero = :numero");
+
+                $sth->bindParam(":numero", $this->numero, PDO::PARAM_INT);
+
+                return $sth->execute();
+                
             } catch(PDOException $e) {
                 $e->getMessage();
             }
