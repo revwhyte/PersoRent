@@ -224,12 +224,13 @@
         }
 		
 		
-		 public function atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias) {
+		 public function atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi) {
             try {
                 $sth = $dbh->prepare("UPDATE veiculo SET marca = :marca, modelo = :modelo, ano = :ano, placa = :placa, odometro = :odometro, cor = :cor, portas = :portas, arCondicionado = :arCondicionado, direcao = :direcao, combustivel = :combustivel, potencia = :potencia, avarias = :avarias, status = :status WHERE chassi = :chassi");
 
 
                 $atualizar = "UPDATE veiculo SET ";
+                $atualizarWhere = "WHERE chassi = :chassi"
                 $filtroMarca = "";
                 $filtroModelo = "";
                 $filtroAno = "";
@@ -336,7 +337,7 @@
                     $filtroAvarias = "avarias = :avarias";
                 }
 
-                $consulta .= .$filtroMarca .$filtroModelo .$filtroAno .$filtroPlaca .$filtroOdometro .$filtroCor .$filtroPortas .$filtroArCondicionado .$filtroDirecao .$filtroCombustivel .$filtroPotencia .$filtroAvarias;
+                $consulta .= .$filtroMarca .$filtroModelo .$filtroAno .$filtroPlaca .$filtroOdometro .$filtroCor .$filtroPortas .$filtroArCondicionado .$filtroDirecao .$filtroCombustivel .$filtroPotencia .$filtroAvarias .$atualizarWhere;
 
 
                 $sth = $dbh->prepare($consulta);
@@ -378,6 +379,7 @@
                    $sth->bindParam(":avarias", $this->avarias, PDO::PARAM_STR);
                 }
 
+                $sth->bindParam(":chassi", $this->chassi, PDO::PARAM_STR);
                 return $sth->execute();
 
             } catch(PDOException $e) {
