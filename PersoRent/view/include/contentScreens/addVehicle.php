@@ -24,7 +24,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="ano">Ano:</label>
 							<div class="col-lg-9">
-								<input class="form-control" type="date" name="ano" id="ano" placeholder="2017" min="1920">
+								<input class="form-control" type="number" name="ano" id="ano" placeholder="2017" min="1920" value="2017">
 							</div>
 						</div>
 					</div>

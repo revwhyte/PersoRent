@@ -2,13 +2,11 @@
 	session_start();
 	require_once '../model/Database.php';
 	require_once '../model/VeiculoModel.php';
-	/*require_once 'DadosBancariosController.php';
-	require_once 'DadosCarteiraController.php';*/
 
-	class veiculoController
+	class VeiculoController
 	{
 		
-		public function addveiculo($post){
+		public static function addVeiculo($post){
 			$db = new Database();
 			$dados['marca'] = $post['marca'];
 			$dados['modelo'] = $post['modelo'];
@@ -25,8 +23,8 @@
 			$dados['avarias'] = $post['avarias'];
 			$dados['status'] = true;			
 			$dbv = new VeiculoModel($dados);
-			$db->conectar();
-			$result = $dbv->criaVeiculo($db);
+			$dbh = $db->conectar();
+			$result = $dbv->criaVeiculo($dbh);
 			$db->desconectar();
 			if($result)
 				return 'true';
