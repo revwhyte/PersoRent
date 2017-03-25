@@ -8,7 +8,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="marca">Marca: </label>
 							<div class="col-lg-9">
-								<input class="form-control" type="text" name="marca" id="marca" placeholder="Marca">
+								<input class="form-control requerido" type="text" name="marca" id="marca" placeholder="Marca" required>
 							</div>
 						</div>
 					</div>
@@ -16,7 +16,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="modelo">Modelo: </label>
 							<div class="col-lg-9">
-								<input class="form-control" type="text" name="modelo" id="modelo" placeholder="Modelo">
+								<input class="form-control requerido" type="text" name="modelo" id="modelo" placeholder="Modelo" required>
 							</div>
 						</div>
 					</div>
@@ -24,7 +24,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="ano">Ano:</label>
 							<div class="col-lg-9">
-								<input class="form-control" type="number" name="ano" id="ano" placeholder="2017" min="1920" value="2017">
+								<input class="form-control requerido" type="number" name="ano" id="ano" placeholder="2017" min="1920" value="2017" required>
 							</div>
 						</div>
 					</div>
@@ -34,7 +34,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="placa">Placa: </label>						
 							<div class="col-lg-9">
-								<input class="form-control" type="text" name="placa" id="placa" placeholder="xyz1234">
+								<input class="form-control requerido" type="text" name="placa" id="placa" placeholder="xyz1234" required>
 							</div>
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="odometro">Odometro: </label>
 							<div class="col-lg-9">							
-								<input class="form-control" type="number" name="odometro" id="odometro" placeholder="1234" min="0">
+								<input class="form-control requerido" type="number" name="odometro" id="odometro" placeholder="1234" min="0" required>
 							</div>
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="cor">Cor: </label>
 							<div class="col-lg-9">							
-								<input class="form-control" type="text" name="cor" id="cor">
+								<input class="form-control requerido" type="text" name="cor" id="cor" required>
 							</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="chassi">Chassi: </label>						
 							<div class="col-lg-9">
-								<input class="form-control" type="text" name="chassi" id="chassi">
+								<input class="form-control requerido" type="text" name="chassi" id="chassi" required>
 							</div>
 						</div>
 					</div>
@@ -68,7 +68,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="portas">Qtd. Portas: </label>				
 							<div class="col-lg-9">
-								<input class="form-control" type="number" name="portas" id="portas" max="4" min="0">
+								<input class="form-control requerido" type="number" name="portas" id="portas" max="4" min="0" required>
 							</div>
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="potencia">Potencia: </label>				
 							<div class="col-lg-9">
-								<input class="form-control" type="number" name="potencia" id="potencia" max="8" min="0" step="0.1">
+								<input class="form-control requerido" type="number" name="potencia" id="potencia" max="8" min="0" step="0.1" required>
 							</div>
 						</div>
 					</div>
@@ -86,8 +86,8 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="combustivel">Combustível: </label>
 							<div class="col-lg-9">
-								<select class="form-control" name="combustivel" id="combustivel">
-									<option value="0">Gasolina</option>
+								<select class="form-control" name="combustivel" id="combustivel" required>
+									<option value="0" selected>Gasolina</option>
 									<option value="1">Etanol</option>
 									<option value="2">Flex(Gaso/Etan)</option>
 									<option value="3">Diesel</option>
@@ -129,27 +129,42 @@
 		</div>	
 	</form>
 	<div id="result"></div>
-	<script>	
+	<script>
+	function camposPreenchidos(){
+		if($('#marca').val().length==0){
+			alert('wtf');
+		}
+		else{
+			alert('nope');
+		}
+	}
+
 	$('#cadastrarVehicle').on('click',function(){
-		$.post('../controller/veiculoController.php', {
-			acao: 'adicionar',
-			marca:$('#marca').val(),
-			modelo:$('#modelo').val(),
-			ano:$('#ano').val(),
-			placa:$('#placa').val(),
-			odometro:$('#odometro').val(),
-			cor:$('#cor').val(),
-			chassi:$('#chassi').val(),
-			portas:$('#portas').val(),
-			potencia:$('#potencia').val(),
-			combustivel:$('#combustivel').val(),
-			arCondicionado:$('#arCondicionado').prop('checked'),
-			direcao:$('#direcao').prop('checked'),
-			avarias:$('#avarias').val(),
-		},function(e){
-			$('#result').html(e);
-			//$('#formAddVehicle')[0].reset();
-		});
+		if(camposPreenchidos){		
+			$.post('../controller/veiculoController.php', {
+				acao: 'adicionar',
+				marca:$('#marca').val(),
+				modelo:$('#modelo').val(),
+				ano:$('#ano').val(),
+				placa:$('#placa').val(),
+				odometro:$('#odometro').val(),
+				cor:$('#cor').val(),
+				chassi:$('#chassi').val(),
+				portas:$('#portas').val(),
+				potencia:$('#potencia').val(),
+				combustivel:$('#combustivel').val(),
+				arCondicionado:$('#arCondicionado').prop('checked'),
+				direcao:$('#direcao').prop('checked'),
+				avarias:$('#avarias').val(),
+			},function(e){
+				$('#result').html(e);
+				if(e.indexOf('success')>0)
+					$('#formAddVehicle')[0].reset();
+			});
+		}
+		else{
+			$('#result').html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Erro!</strong> Preencha os campos.</div>');
+		}
 	});
 	$('#voltar').on('click',function(){
 		$.post('../controller/redireciona.php', {page:this.value},function(e){

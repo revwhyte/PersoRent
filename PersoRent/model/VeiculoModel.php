@@ -62,7 +62,7 @@
 
         public static function buscaVeiculoChassi($dbh, $chassi) {
             try {
-                $sth = $dbh->prepare("SELECT marca, modelo, ano, placa, odometro, chassi, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE chassi = :chassi");
+                $sth = $dbh->prepare("SELECT marca, modelo, ano, placa, odometro, chassi, cor, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE chassi = :chassi");
 
                 $sth->bindParam(":chassi", $chassi, PDO::PARAM_STR);
                 $sth->execute();
@@ -74,7 +74,7 @@
             } catch(PDOException $e) {
                 $e->getMessage();
             }
-        }
+        }/*
 
 
         public static function buscaVeiculoFiltros($dbh, $marca, $modelo, $ano, $placa, $portas, $arCondicionado, $direcao, $combustivel, $potencia) {
@@ -161,7 +161,7 @@
                     $existeParametros = true;
                 }
 
-                $consulta .= .$filtroMarca .$filtroModelo .$filtroAno .$filtroPlaca .$filtroPortas .$filtroArCondicionado .$filtroDirecao .$filtroCombustivel .$filtroPotencia;
+                $consulta .= $filtroMarca .$filtroModelo .$filtroAno .$filtroPlaca .$filtroPortas .$filtroArCondicionado .$filtroDirecao .$filtroCombustivel .$filtroPotencia;
 
 
                 $sth = $dbh->prepare($consulta);
@@ -204,7 +204,7 @@
             } catch(PDOException $e) {
                 $e->getMessage();
             }
-        }
+        }*/
 
 
 
@@ -224,7 +224,7 @@
         }
 		
 		
-		 public function atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi) {
+		 /*public function atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi) {
             try {
                 $sth = $dbh->prepare("UPDATE veiculo SET marca = :marca, modelo = :modelo, ano = :ano, placa = :placa, odometro = :odometro, cor = :cor, portas = :portas, arCondicionado = :arCondicionado, direcao = :direcao, combustivel = :combustivel, potencia = :potencia, avarias = :avarias, status = :status WHERE chassi = :chassi");
 
@@ -385,7 +385,7 @@
             } catch(PDOException $e) {
                 $e->getMessage();
             }
-        }
+        }*/
 
         public static function removeVeiculo($dbh) {
             try {

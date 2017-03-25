@@ -63,14 +63,14 @@
 		else
 			echo '';*/
 		//testeeditvehicle
-		/*if (isset($_POST['chassi'])&&$_POST['chassi']=='12345678') {
-			echo '1=>2=>3=>4=>5=>6=>7=>2002-02-02=>9=>10=>11=>12=>13';			
+		if (isset($_POST['chassi'])&&$_POST['chassi']=='12345678') {
+			echo '1=>2=>3=>4=>5=>6=>7=>2002-02-02=>9=>10=>11=>12=>13=>14';			
 			unset($_POST['chassi']);
 		}
 		else
-			echo '';*/
+			echo '';
 		//testedelvehicle
-		if (isset($_POST['chassi'])&&$_POST['chassi']=='12345678') {
+		/*if (isset($_POST['chassi'])&&$_POST['chassi']=='12345678') {
 			echo '
 					<div class="row">
 						<div class="well well-sm col-lg-12" onclick="mostrar(\'12345678\')" id="\'12345678\'">
@@ -85,6 +85,6 @@
 						</div>
 					</div>';			
 			unset($_POST['chassi']);
-		}
+		}*/
 	}
 ?>

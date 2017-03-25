@@ -23,7 +23,7 @@
 		<form id="formEditVeiculo">
 			<div class="form-horizontal">
 			<fieldset>
-				<legend>Adicionar Veículo</legend>
+				<legend>Editar Veículo</legend>
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="form-group">
@@ -81,7 +81,7 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3" for="chassi">Chassi: </label>						
 								<div class="col-lg-9">
-									<input class="form-control" type="text" name="chassi" id="chassi">
+									<input class="form-control" type="text" name="chassi" id="chassi" readonly>
 								</div>
 							</div>
 						</div>
@@ -125,6 +125,7 @@
 						<div class="col-lg-4">
 							<div class="checkbox">
 							  	<label><input type="checkbox" name="direcao" id="direcao">Direção Hidraulica</label>
+							  	<input type="checkbox" name="status" id="status" hidden>
 							</div>
 						</div>
 					</div>				
@@ -166,7 +167,7 @@
 	$('#chassiSearch').on('keyup',function(){
 		//$('#nomeSearch').val("");
 		$('#resultBuscar').fadeOut("slow");
-		$.post('../controller/teste.php', {chassi:$('#chassiSearch').val()},function(e){
+		$.post('../controller/veiculoController.php', {acao:'buscar', chassi:$('#chassiSearch').val()},function(e){
 			if (e=='') {
 				$('#editarVeiculo').fadeOut("slow");
 			}
@@ -184,76 +185,50 @@
 					$('#qtdPorta').val(aux[7]);
 					$('#potencia').val(aux[8]);
 					$('#combustivel').val(aux[9]);
-					$('#ar').val(aux[10]);
-					$('#direcao').val(aux[11]);
+					$('#ar').prop('checked', aux[10]);
+					$('#direcao').prop('checked', aux[11]);
 					$('#avarias').val(aux[12]);
+					$('#status').prop('checked', aux[13]);
 				});
 			}
-			//$('#result').html(e);
+			$('#result').html(e);
 		});
 	});
-	/*
-	$('#nomeSearch').on('keyup',function(){
-		$('#cpfSearch').val("");
-		$.post('../controller/teste.php', {nome:$('#nomeSearch').val()},function(e){
-			if (e=='') {
-				$('#editarCliente').fadeOut("slow");
-				$('#resultBuscar').fadeOut("slow");
-			}
-			else{
-				$('#resultBuscar').fadeIn("slow");				
-				$('#resultBuscar').html(e);
-			}
-			//$('#result').html(e);
-		});
-	});	
-	function escolha(cpf){
-		$('#nomeSearch').val("");
-		$('#resultBuscar').fadeOut("slow");//alert(cpf);
-		$.post('../controller/teste.php', {cpf:cpf},function(e){
-			if (e=='') {
-				$('#editarCliente').fadeOut("slow");
-			}
-			else{
-				$('#buscarCliente').fadeOut("slow",function(){
-					$('#editarCliente').fadeIn("slow");
-					var aux = e.split('=>');
-					$('#nome').val(aux[0]);
-					$('#rg').val(aux[1]);
-					$('#cpf').val(aux[2]);
-					$('#cep').val(aux[3]);
-					$('#endereco').val(aux[4]);
-					$('#nSerie').val(aux[5]);
-					$('#categoria').val(aux[6]);
-					$('#validade').val(aux[7]);
-					$('#agencia').val(aux[8]);
-					$('#conta').val(aux[9]);
-					$('#digito').val(aux[10]);
-					$('#enderecoAgencia').val(aux[11]);
-				});
-			}
-			//$('#result').html(e);
-		});
-	};	
-	$('#editarCliente').on('click',function(){
-		$.post('../controller/teste.php', {
-			nome:$('#nome').val(),
-			rg:$('#rg').val(),
-			cpf:$('#cpf').val(),
-			cep:$('#cep').val(),
-			endereco:$('#endereco').val(),
-			nSerie:$('#nSerie').val(),
-			categoria:$('#categoria').val(),
-			validade:$('#validade').val(),
-			agencia:$('#agencia').val(),
-			conta:$('#conta').val(),
-			digito:$('#digito').val(),
-			enderecoAgencia:$('#enderecoAgencia').val()
-		},function(e){
-			$('#result').html(e);
-			//$('#formEditCliente')[0].reset();
-		});
-	});*/
+	function camposPreenchidos(){
+		if($('#marca').val().length==0){
+			alert('wtf');
+		}
+		else{
+			alert('nope');
+		}
+	}
+	$('#botaoEditarVeiculo').on('click',function(){
+		if(camposPreenchidos){		
+			$.post('../controller/veiculoController.php', {
+				acao: 'editar',
+				marca:$('#marca').val(),
+				modelo:$('#modelo').val(),
+				ano:$('#ano').val(),
+				placa:$('#placa').val(),
+				odometro:$('#odometro').val(),
+				cor:$('#cor').val(),
+				chassi:$('#chassi').val(),
+				portas:$('#portas').val(),
+				potencia:$('#potencia').val(),
+				combustivel:$('#combustivel').val(),
+				arCondicionado:$('#arCondicionado').prop('checked'),
+				direcao:$('#direcao').prop('checked'),
+				avarias:$('#avarias').val(),
+			},function(e){
+				$('#result').html(e);
+				if(e.indexOf('success')>0)
+					$('#formAddVehicle')[0].reset();
+			});
+		}
+		else{
+			$('#result').html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Erro!</strong> Preencha os campos.</div>');
+		}
+	});
 	$('#voltar').on('click',function(){
 		$.post('../controller/redireciona.php', {page:this.value},function(e){
 			$('#content').html(e);
