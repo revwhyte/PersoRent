@@ -43,6 +43,7 @@
 			$dadosPessoa['cpf'] = $post['cpf'];
 			$dadosPessoa['cep'] = $post['cep'];
 			$dadosPessoa['endereco'] = $post['endereco'];
+			$dadosPessoa['id_cnh'] = $post['id_cnh'];
 			$dbp = new ClienteModel($dadosPessoa);
 			$db->conectar();
 			$result = $dbp->criaCliente($db);
