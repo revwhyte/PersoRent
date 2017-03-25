@@ -1,7 +1,7 @@
 <?php 
 	session_start();
-	//require_once '../model/Database.php';
-	require_once '../model/ClienteController.php';
+	require_once '../model/Database.php';
+	require_once '../model/ClienteModel.php';
 	/*require_once 'DadosBancariosController.php';
 	require_once 'DadosCarteiraController.php';*/
 
@@ -9,7 +9,7 @@
 	{
 		
 		public function addCliente($post){
-			$db = new BancoDeDados();
+			$db = new Database();
 			$dadosPessoa['dadosBanco'] = '';
 			if(isset($post['agencia'])){
 				$dadosBanco['agencia'] = $post['agencia'];
@@ -20,7 +20,7 @@
 				$db->conectar();
 				$result = $dbm->criaDadosBancarios($db)
 				$db->desconectar();
-				if($result);
+				if($result)
 					$dadosPessoa['dadosBanco'] = $result;
 				else
 					return 'false';
@@ -33,7 +33,7 @@
 			$db->conectar();
 			$result = $dbc->criaDadosCarteira($db);
 			$db->desconectar();
-			if($result);
+			if($result)
 				$dadosPessoa['dadosCarteira'] = $result;
 			else
 				return 'false';
@@ -47,7 +47,7 @@
 			$db->conectar();
 			$result = $dbp->criaCliente($db);
 			$db->desconectar();
-			if($result);
+			if($result)
 				return 'true';
 			else
 				return 'false';

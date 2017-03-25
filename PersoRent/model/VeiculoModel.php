@@ -1,5 +1,6 @@
 <?php
-
+    require_once 'Database.php';
+    
     class VeiculoModel {
         private $marca;
         private $modelo;

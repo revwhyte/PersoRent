@@ -66,9 +66,9 @@
 					</div>
 					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="control-label col-lg-3" for="qtdPorta">Qtd. Portas: </label>				
+							<label class="control-label col-lg-3" for="portas">Qtd. Portas: </label>				
 							<div class="col-lg-9">
-								<input class="form-control" type="number" name="qtdPorta" id="qtdPorta" max="4" min="0">
+								<input class="form-control" type="number" name="portas" id="portas" max="4" min="0">
 							</div>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 					</div>
 					<div class="col-lg-4">
 						<div class="checkbox">
-						  	<label><input type="checkbox" name="ar" id="ar">Ar Condicionado</label>
+						  	<label><input type="checkbox" name="arCondicionado" id="arCondicionado">Ar Condicionado</label>
 						</div>
 					</div>
 					<div class="col-lg-4">
@@ -131,7 +131,8 @@
 	<div id="result"></div>
 	<script>	
 	$('#cadastrarVehicle').on('click',function(){
-		$.post('../controller/teste.php', {
+		$.post('../controller/veiculoController.php', {
+			acao: 'adicionar',
 			marca:$('#marca').val(),
 			modelo:$('#modelo').val(),
 			ano:$('#ano').val(),
@@ -139,15 +140,15 @@
 			odometro:$('#odometro').val(),
 			cor:$('#cor').val(),
 			chassi:$('#chassi').val(),
-			qtdPorta:$('#qtdPorta').val(),
+			portas:$('#portas').val(),
 			potencia:$('#potencia').val(),
 			combustivel:$('#combustivel').val(),
-			ar:$('#ar').prop('checked'),
+			arCondicionado:$('#arCondicionado').prop('checked'),
 			direcao:$('#direcao').prop('checked'),
 			avarias:$('#avarias').val(),
 		},function(e){
 			$('#result').html(e);
-			$('#formAddVehicle')[0].reset();
+			//$('#formAddVehicle')[0].reset();
 		});
 	});
 	$('#voltar').on('click',function(){
