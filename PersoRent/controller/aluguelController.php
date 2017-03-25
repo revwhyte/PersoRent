@@ -44,9 +44,9 @@
 				$dadosVeiculo['avarias'] = $post['avarias'];
 				$dadosVeiculo['status'] = true;	
 
-				$dbc = new ClienteModel($dadosPessoa);
+				$dbc = new VeiculoModel($dadosPessoa);
 				$db->conectar();
-				$result = $dbc->criaCliente($db)
+				$result = $dbc->criaVeiculo($db)
 				$db->desconectar();
 				if($result)
 					$dadosAluguel['dadosVeiculo'] = $result;
