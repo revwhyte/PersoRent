@@ -74,94 +74,83 @@
             } catch(PDOException $e) {
                 $e->getMessage();
             }
-        }/*
+        }
 
 
         public static function buscaVeiculoFiltros($dbh, $marca, $modelo, $ano, $placa, $portas, $arCondicionado, $direcao, $combustivel, $potencia) {
             try {
 
                 $consulta = "SELECT marca, modelo, ano, placa, odometro, chassi, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE ";
-                $filtroMarca = "";
-                $filtroModelo = "";
-                $filtroAno = "";
-                $filtroPlaca = "";
-                $filtroPortas = "";
-                $filtroArCondicionado = "";
-                $filtroDirecao = "";
-                $filtroCombustivel = "";
-                $filtroPotencia = "";
                 $existeParametros = false;
 
                 if(isset($marca)){
-                    $filtroMarca = "marca = :marca";
+                    $consulta .= "marca = :marca";
                     $existeParametros = true;
                 }
                 if(isset($modelo)){
                     if($existeParametros){
-                         $filtroModelo = "AND modelo = :modelo";
-                         break;
+                         $consulta .= "AND modelo = :modelo";
+                    } else{
+                        $consulta .= "modelo = :modelo";
+                        $existeParametros = true;
                     }
-                    $filtroModelo = "modelo = :modelo";
-                    $existeParametros = true;
                 }
                 if(isset($ano)){
                     if($existeParametros){
-                         $filtroModelo = "AND ano = :ano";
-                         break;
+                         $consulta .= "AND ano = :ano";
+                    }else {
+                        $consulta .= "ano = :ano";
+                        $existeParametros = true;
                     }
-                    $filtroAno = "ano = :ano";
-                    $existeParametros = true;
                 }
                 if(isset($placa)){
                     if($existeParametros){
-                         $filtroPlaca = "AND placa = :placa";
-                         break;
+                         $consulta .= "AND placa = :placa";
+                    } else {
+                        $consulta .= "placa = :placa";
+                        $existeParametros = true;
                     }
-                    $filtroPlaca = "placa = :placa";
-                    $existeParametros = true;
                 }
                 if(isset($portas)){
                     if($existeParametros){
-                         $filtroPortas = "AND portas = :portas";
-                         break;
+                         $consulta .= "AND portas = :portas";
+                    } else {
+                        $consulta .= "portas = :portas";
+                        $existeParametros = true;
                     }
-                    $filtroPortas = "portas = :portas";
-                    $existeParametros = true;
                 }
                 if(isset($arCondicionado)){
                     if($existeParametros){
-                         $filtroArCondicionado = "AND arCondicionado = :arCondicionado";
-                         break;
+                         $consulta .= "AND arCondicionado = :arCondicionado";
+                    } else {
+                        $consulta .= "arCondicionado = :arCondicionado";
+                        $existeParametros = true;
                     }
-                    $filtroArCondicionado = "arCondicionado = :arCondicionado";
-                    $existeParametros = true;
                 }
                 if(isset($direcao)){
                     if($existeParametros){
-                         $filtroDirecao = "AND direcao = :direcao";
-                         break;
+                         $consulta .= "AND direcao = :direcao";
+                    } else {
+                        $consulta .= "direcao = :direcao";
+                        $existeParametros = true;
                     }
-                    $filtroDirecao = "direcao = :direcao";
-                    $existeParametros = true;
                 }
                 if(isset($combustivel)){
                     if($existeParametros){
-                         $filtroCombustivel = "AND combustivel = :combustivel";
-                         break;
+                         $consulta .= "AND combustivel = :combustivel";
+                    } else { 
+                        $consulta .= "combustivel = :combustivel";
+                        $existeParametros = true;
                     }
-                    $filtroCombustivel = "combustivel = :combustivel";
-                    $existeParametros = true;
                 }
                 if(isset($potencia)){
                     if($existeParametros){
-                         $filtroPotencia = "AND potencia = :potencia";
-                         break;
+                         $consulta .= "AND potencia = :potencia";
+                    } else {
+                        $consulta .= "potencia = :potencia";
+                        $existeParametros = true;
                     }
-                    $filtroPotencia = "potencia = :potencia";
-                    $existeParametros = true;
                 }
-
-                $consulta .= $filtroMarca .$filtroModelo .$filtroAno .$filtroPlaca .$filtroPortas .$filtroArCondicionado .$filtroDirecao .$filtroCombustivel .$filtroPotencia;
 
 
                 $sth = $dbh->prepare($consulta);
@@ -204,7 +193,7 @@
             } catch(PDOException $e) {
                 $e->getMessage();
             }
-        }*/
+        }
 
 
 
@@ -224,120 +213,107 @@
         }
 		
 		
-		 /*public function atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi) {
+		 public function atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi) {
             try {
                 $sth = $dbh->prepare("UPDATE veiculo SET marca = :marca, modelo = :modelo, ano = :ano, placa = :placa, odometro = :odometro, cor = :cor, portas = :portas, arCondicionado = :arCondicionado, direcao = :direcao, combustivel = :combustivel, potencia = :potencia, avarias = :avarias, status = :status WHERE chassi = :chassi");
 
 
                 $atualizar = "UPDATE veiculo SET ";
-                $atualizarWhere = "WHERE chassi = :chassi"
-                $filtroMarca = "";
-                $filtroModelo = "";
-                $filtroAno = "";
-                $filtroPlaca = "";
-                $filtroOdometro = "";
-                $filtroCor = "";
-                $filtroPortas = "";
-                $filtroArCondicionado = "";
-                $filtroDirecao = "";
-                $filtroCombustivel = "";
-                $filtroPotencia = "";
-                $filtroAvarias = "";
-                $existeParametros = false;
+                $atualizarWhere = " WHERE chassi = :chassi";            
 
                 if(isset($marca)){
-                    $filtroMarca = "marca = :marca";
+                    $atualizar = "marca = :marca";
                     $existeParametros = true;
                 }
                 if(isset($modelo)){
                     if($existeParametros){
-                         $filtroModelo = ", modelo = :modelo";
-                         break;
+                         $atualizar .= ", modelo = :modelo";
+                    } else {
+                        $atualizar .= "modelo = :modelo";
+                        $existeParametros = true;
                     }
-                    $filtroModelo = "modelo = :modelo";
-                    $existeParametros = true;
                 }
                 if(isset($ano)){
                     if($existeParametros){
-                         $filtroAno = ", ano = :ano";
-                         break;
+                         $atualizar .= ", ano = :ano";
+                    } else {
+                        $atualizar .= "ano = :ano";
+                        $existeParametros = true;
                     }
-                    $filtroAno = "ano = :ano";
-                    $existeParametros = true;
                 }
                 if(isset($placa)){
                     if($existeParametros){
-                         $filtroPlaca = ", placa = :placa";
-                         break;
+                         $atualizar .= ", placa = :placa";
+                    } else {
+                        $atualizar .= "placa = :placa";
+                        $existeParametros = true;
                     }
-                    $filtroPlaca = "placa = :placa";
-                    $existeParametros = true;
                 }
                 if(isset($odometro)){
                     if($existeParametros){
-                         $filtroOdometro = ", odometro = :odometro";
-                         break;
+                         $atualizar .= ", odometro = :odometro";
+                    } else {
+                        $atualizar .= "odometro = :odometro";
+                        $existeParametros = true;
                     }
-                    $filtroOdometro = "odometro = :odometro";
-                    $existeParametros = true;
                 }
                 if(isset($cor)){
                     if($existeParametros){
-                         $filtroCor = ", cor = :cor";
-                         break;
+                         $atualizar .= ", cor = :cor";
+                    } else {
+                        $atualizar .= "cor = :cor";
+                        $existeParametros = true;
                     }
-                    $filtroCor = "cor = :cor";
-                    $existeParametros = true;
                 }
                 if(isset($portas)){
                     if($existeParametros){
-                         $filtroPortas = ", portas = :portas";
-                         break;
+                         $atualizar .= ", portas = :portas";
+                    } else {
+                        $atualizar .= "portas = :portas";
+                        $existeParametros = true;
                     }
-                    $filtroPortas = "portas = :portas";
-                    $existeParametros = true;
                 }
                 if(isset($arCondicionado)){
                     if($existeParametros){
-                         $filtroArCondicionado = ", arCondicionado = :arCondicionado";
-                         break;
+                         $atualizar .= ", arCondicionado = :arCondicionado";
+                    } else {
+                        $atualizar .= "arCondicionado = :arCondicionado";
+                        $existeParametros = true;
                     }
-                    $filtroArCondicionado = "arCondicionado = :arCondicionado";
-                    $existeParametros = true;
                 }
                 if(isset($direcao)){
                     if($existeParametros){
-                         $filtroDirecao = ", direcao = :direcao";
-                         break;
+                         $atualizar .= ", direcao = :direcao";
+                    } else {
+                        $atualizar .= "direcao = :direcao";
+                        $existeParametros = true;
                     }
-                    $filtroDirecao = "direcao = :direcao";
-                    $existeParametros = true;
                 }
                 if(isset($combustivel)){
                     if($existeParametros){
-                         $filtroCombustivel = ", combustivel = :combustivel";
-                         break;
+                         $atualizar .= ", combustivel = :combustivel";
+                    } else {
+                        $atualizar .= "combustivel = :combustivel";
+                        $existeParametros = true;
                     }
-                    $filtroCombustivel = "combustivel = :combustivel";
-                    $existeParametros = true;
                 }
                 if(isset($potencia)){
                     if($existeParametros){
-                         $filtroPotencia = ", potencia = :potencia";
-                         break;
+                         $atualizar .= ", potencia = :potencia";
+                    } else {
+                        $atualizar .= "potencia = :potencia";
+                        $existeParametros = true;
                     }
-                    $filtroPotencia = "potencia = :potencia";
-                    $existeParametros = true;
                 }
                 if(isset($avarias)){
                     if($existeParametros){
-                         $filtroAvarias = ", avarias = :avarias";
-                         break;
+                         $atualizar .= ", avarias = :avarias";
+                    }else {
+                        $atualizar .= "avarias = :avarias";
                     }
-                    $filtroAvarias = "avarias = :avarias";
                 }
 
-                $consulta .= .$filtroMarca .$filtroModelo .$filtroAno .$filtroPlaca .$filtroOdometro .$filtroCor .$filtroPortas .$filtroArCondicionado .$filtroDirecao .$filtroCombustivel .$filtroPotencia .$filtroAvarias .$atualizarWhere;
+                $consulta .= $fatualizar .$atualizarWhere;
 
 
                 $sth = $dbh->prepare($consulta);
@@ -385,7 +361,7 @@
             } catch(PDOException $e) {
                 $e->getMessage();
             }
-        }*/
+        }
 
         public static function removeVeiculo($dbh) {
             try {
