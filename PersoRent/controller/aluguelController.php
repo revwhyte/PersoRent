@@ -32,6 +32,33 @@
 						  <strong>Erro!</strong> Dados nao puderam ser inseridos. Favor verificar se o chassi é único ou o banco está funcionando.
 						</div>';
 		}
+
+		public static function buscaAluguel($post){
+			$db = new Database();
+			$dados['data_devolucao'] = $post['data_devolucao'];
+			$dbh = $db->conectar();
+			$result = AluguelModel::buscarAluguelDataDevolucao($dbh,$dados['data_devolucao']);
+			$db->desconectar();
+			if($result){
+				foreach ($result as $aluguel) {
+					echo '
+					<div class="row">
+						<div class="well well-sm aluguel" onclick="escolha(\''.$i.'2345678\')">					
+							  / Data Saida: '.$veiculo['data_saida'].
+							' / Data Devolucao: '.$veiculo['data_devolucao'].
+							' / Valor: '.$veiculo['valor'].
+							' / Multa: '.$veiculo['multa'].
+							' / Novas Avarias: '.$veiculo['novas_avarias'].
+							' / Status: '.$veiculo['status'].
+							' / Veiculo Chassi: '.$veiculo['veiculo_chassi'].
+							' / Cliente CPF: '.$veiculo['cliente_cpf'].'
+						</div>
+					</div>';
+				}
+			}
+			else
+				echo '';
+		}
 	}
 
 	if (isset($_POST)&&isset($_POST['acao'])) {

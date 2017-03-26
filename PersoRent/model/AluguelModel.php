@@ -47,7 +47,7 @@
     }
 	
 
-    public static function buscarAluguelDataSaida($dbh) {
+    public static function buscarAluguelDataSaida($dbh, $data_saida) {
       try {
         //string de query
         $sth = $dbh->prepare("SELECT data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_saida = :data_saida");
@@ -63,7 +63,7 @@
       }
     }
 
-    public static function buscarAluguelDataDevolucao($dbh) {
+    public static function buscarAluguelDataDevolucao($dbh, $data_devolucao) {
       try {
         //string de query
         $sth = $dbh->prepare("SELECT data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_devolucao = :data_devolucao");

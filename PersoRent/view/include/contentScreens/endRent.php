@@ -7,7 +7,7 @@
 					<div class="form-group">
 						<label class="control-label col-lg-3" for="dataFinal">Data Devolucao: </label>
 						<div class="col-lg-9">
-							<input class="form-control" type="date" name="dataFinal" id="dataFinal" placeholder="Nº Chassi">
+							<input class="form-control" type="date" name="dataFinal" id="dataFinal">
 						</div>
 					</div>
 				</div>
@@ -26,19 +26,19 @@
 	<div id="result"></div>
 	<script>
 		$(document).ready(function() { 
-			$('#delBuscar').hide();
+			$('#endBuscar').hide();
 		});
 		$('#dataFinal').on('keyup',function(){
-			$('#delBuscar').fadeOut("slow");
-			$.post('../controller/veiculoController.php', {acao:'buscaFinalizar', data_devolucao:$('#dataFinal').val()},function(e){
+			$('#endBuscar').fadeOut("slow");
+			$.post('../controller/aluguelController.php', {acao:'buscaFinalizar', data_devolucao:$('#dataFinal').val()},function(e){
 				if (e=='') {
-					$('#delBuscar').fadeOut("slow");
+					$('#endBuscar').fadeOut("slow");
 				}
 				else{					
-					$('#delBuscar').fadeIn("slow");				
+					$('#endBuscar').fadeIn("slow");				
 					$('#resultBuscar').html(e);
 				}
-				//$('#result').html(e);
+				$('#result').html(e);
 			});
 		});
 		
