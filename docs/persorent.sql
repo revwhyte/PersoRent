@@ -30,24 +30,24 @@ CREATE TABLE IF NOT EXISTS `persorent`.`cliente` (
   `cpf` VARCHAR(11) NOT NULL,
   `endereco` VARCHAR(60) NOT NULL,
   `cep` VARCHAR(8) NOT NULL,
-  `id_cnh` INT NOT NULL,
+  `id_cnh` VARCHAR(12) NOT NULL,
   `dados_bancarios_agencia` SMALLINT(5) NOT NULL,
   `dados_bancarios_conta` SMALLINT(5) NOT NULL,
   `dados_bancarios_digito` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`id_cnh`, `cpf`),
+  PRIMARY KEY (`cpf`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC),
   UNIQUE INDEX `rg_UNIQUE` (`rg` ASC),
-  INDEX `fk_cliente_cnh1_idx` (`id_cnh` ASC),
   INDEX `fk_cliente_dados_bancarios1_idx` (`dados_bancarios_agencia` ASC, `dados_bancarios_conta` ASC, `dados_bancarios_digito` ASC),
-  CONSTRAINT `fk_cliente_cnh1`
-    FOREIGN KEY (`id_cnh`)
-    REFERENCES `persorent`.`cnh` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_cliente_cnh1_idx` (`id_cnh` ASC),
   CONSTRAINT `fk_cliente_dados_bancarios1`
     FOREIGN KEY (`dados_bancarios_agencia` , `dados_bancarios_conta` , `dados_bancarios_digito`)
     REFERENCES `persorent`.`dados_bancarios` (`agencia` , `conta` , `digito`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cliente_cnh1`
+    FOREIGN KEY (`id_cnh`)
+    REFERENCES `persorent`.`cnh` (`numero`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
