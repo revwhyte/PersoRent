@@ -115,7 +115,7 @@
 						<div class="well well-sm col-lg-12" onclick="mostrar(\''.$result['chassi'].'\')" id="\''.$result['chassi'].'\'">
 							<div class="col-lg-9">
 								<h3>Chassi: '.$result['chassi'].'</h3>
-								Modelo: '.$result['modelo'].' Modelo: '.$result['modelo'].'
+								Marca: '.$result['marca'].' Modelo: '.$result['modelo'].'
 							</div>
 							<div class="col-lg-3" id="div'.$result['chassi'].'" hidden style="margin-top: auto;margin-bottom: auto;">
 								<input type="button" class="btn btn-default cancelar" onclick="esconder(\''.$result['chassi'].'\')" id="canc'.$result['chassi'].'" value="Cancelar">
