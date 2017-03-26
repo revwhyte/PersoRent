@@ -27,7 +27,7 @@
 				readfile('../view/include/contentScreens/editRent.php');
 				break;
 			case 'delRent':				
-				readfile('../view/include/contentScreens/delRent.php');
+				readfile('../view/include/contentScreens/endRent.php');
 				break;
 			case 'Voltar':
 				readfile('../view/include/contentScreens/welcome.php');

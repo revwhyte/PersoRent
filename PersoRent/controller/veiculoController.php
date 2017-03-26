@@ -78,9 +78,12 @@
 				var_dump($result[0]);
 			echo '</pre>';*/
 			if($result){
+				$saida = '';
 				foreach ($result as $veiculo) {
-					echo '<option value="'.$veiculo['marca'].'">'.$veiculo['marca'].'</option>';
+					if(strpos($saida,$veiculo['marca'])===false)
+						$saida.= '<option value="'.$veiculo['marca'].'">'.$veiculo['marca'].'</option>';
 				}
+				echo $saida;
 			}
 			else
 				echo '';

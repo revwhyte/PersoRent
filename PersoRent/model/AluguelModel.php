@@ -52,7 +52,7 @@
         //string de query
         $sth = $dbh->prepare("SELECT data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_saida = :data_saida");
         // amarra parametros
-        $sth->bindParam(":chassis", $chassis, PDO::PARAM_STR);
+        $sth->bindParam(":data_saida", $data_saida, PDO::PARAM_STR);
         // executa query
         $sth->execute();
         // extrai resultados
@@ -68,7 +68,7 @@
         //string de query
         $sth = $dbh->prepare("SELECT data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_devolucao = :data_devolucao");
         // amarra parametros
-        $sth->bindParam(":chassis", $chassis, PDO::PARAM_STR);
+        $sth->bindParam(":data_devolucao", $data_devolucao, PDO::PARAM_STR);
         // executa query
         $sth->execute();
         // extrai resultados

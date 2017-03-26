@@ -199,7 +199,7 @@
 			$db = new Database();
 			$dados['cpf'] = $post['cpf'];
 			$dbh = $db->conectar();
-			$result = ClienteModel::removeVeiculo($dbh, $dados['cpf']);
+			$result = ClienteModel::removeCliente($dbh, $dados['cpf']);
 			$db->desconectar();
 			if($result)
 				echo '<div class="alert alert-success alert-dismissable">

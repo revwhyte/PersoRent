@@ -42,8 +42,8 @@
 			case 'editar':
 				AluguelController::editAluguel($_POST);
 				break;
-			case 'remover':
-				AluguelController::delAluguel($_POST);
+			case 'buscaFinalizar':
+				AluguelController::buscaAluguel($_POST);
 				break;
 			
 			default:

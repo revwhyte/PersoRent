@@ -152,6 +152,8 @@
                     }
                 }
 
+                $consulta .= " AND status = :verdadeira";
+                $status = true;
 
                 $sth = $dbh->prepare($consulta);
 
@@ -182,6 +184,8 @@
                 if(isset($dados['potencia'])){
                      $sth->bindParam(":potencia", $dados['potencia'], PDO::PARAM_STR);
                 }
+
+                $sth->bindParam(":verdadeira", $status, PDO::PARAM_BOOL);
 
                
                 $sth->execute();
