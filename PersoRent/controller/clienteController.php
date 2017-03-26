@@ -123,6 +123,22 @@
 			else
 				echo '';
 		}
+		public static function readAllClienteCpf(){
+			$db = new Database();
+			$dbh = $db->conectar();
+			$result = ClienteModel::retornaTodosClientes($dbh);
+			$db->desconectar();
+			/*echo '<pre>';
+				var_dump($result[0]);
+			echo '</pre>';*/			
+			if($result){
+				foreach ($result as $cliente) {
+					echo '<option value="'.$cliente['cpf'].'">'.$cliente['cpf'].'</option>';
+				}
+			}
+			else
+				echo '';
+		}
 	}
 	if (isset($_POST)&&isset($_POST['acao'])) {
 		switch ($_POST['acao']) {
@@ -131,6 +147,9 @@
 				break;
 			case 'buscarCpf':
 				ClienteController::readClienteCpf($_POST);
+				break;
+			case 'buscarTodosCpf':
+				ClienteController::readAllClienteCpf();
 				break;
 			case 'editar':
 				ClienteController::editCliente($_POST);
