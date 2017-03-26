@@ -80,7 +80,7 @@
         public static function buscaVeiculoFiltros($dbh, $dados) {
             try {
 
-                $consulta = "SELECT marca, modelo, ano, placa, odometro, chassi, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE ";
+                $consulta = "SELECT marca, modelo, ano, placa, odometro, cor, chassi, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE ";
                 $existeParametros = false;
 
                 if(isset($dados['marca'])){

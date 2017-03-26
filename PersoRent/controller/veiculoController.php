@@ -76,7 +76,7 @@
 			$db->desconectar();
 			/*echo '<pre>';
 				var_dump($result[0]);
-			echo '</pre>'*/;
+			echo '</pre>';*/
 			if($result){
 				foreach ($result as $veiculo) {
 					echo '<option value="'.$veiculo['marca'].'">'.$veiculo['marca'].'</option>';
@@ -121,7 +121,28 @@
 			$db->desconectar();
 			if($result){
 				foreach ($result as $veiculo) {
-					echo '<option value="'.$veiculo['portas'].'">'.$veiculo['portas'].'</option>';
+					echo '<div class="row">
+						<div class="well well-sm col-lg-12" onclick="mostrar(\''.$veiculo['chassi'].'\')" id="\''.$veiculo['chassi'].'\'">											
+							<div class="col-lg-1" id="div'.$veiculo['chassi'].'" style="margin-top: auto;margin-bottom: auto;">
+								<input type="radio" name="chassi" value="'.$veiculo['chassi'].'">
+							</div>
+							<div class="col-lg-9">
+								Chassi: '.$veiculo['chassi'].
+								' / Marca: '.$veiculo['marca'].
+								' / Modelo: '.$veiculo['modelo'].
+								' / ano: '.$veiculo['ano'].
+								' / placa: '.$veiculo['placa'].
+								' / odometro: '.$veiculo['odometro'].
+								' / cor: '.$veiculo['cor'].
+								' / chassi: '.$veiculo['chassi'].
+								' / portas: '.$veiculo['portas'].
+								' / potencia: '.$veiculo['potencia'].
+								' / combustivel: '.$veiculo['combustivel'].
+								' / arCondicionado: '.$veiculo['arCondicionado'].
+								' / direcao: '.$veiculo['direcao'].'
+							</div>
+						</div>
+					</div>';
 				}
 			}
 			else
@@ -181,7 +202,7 @@
 								<input type="button" class="btn btn-danger confirmar" id="conf'.$result['chassi'].'" value="Confirmar" onclick="deletar(\''.$result['chassi'].'\')">
 							</div>
 						</div>
-					</div>';					
+					</div>';				
 			}
 			else
 				echo '';
