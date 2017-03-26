@@ -34,15 +34,15 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="placa">Placa: </label>						
 							<div class="col-lg-9">
-								<input class="form-control requerido" type="text" name="placa" id="placa" placeholder="xyz1234" required>
+								<input class="form-control requerido" type="text" name="placa" id="placa" placeholder="AAA-0000" required>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="control-label col-lg-3" for="odometro">Odometro: </label>
+							<label class="control-label col-lg-3" for="odometro">Odômetro: </label>
 							<div class="col-lg-9">							
-								<input class="form-control requerido" type="number" name="odometro" id="odometro" placeholder="1234" min="0" required>
+								<input class="form-control requerido" type="number" name="odometro" id="odometro" min="0" required>
 							</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="chassi">Chassi: </label>						
 							<div class="col-lg-9">
-								<input class="form-control requerido" type="text" name="chassi" id="chassi" required>
+								<input class="form-control requerido" type="text" name="chassi" id="chassi" placeholder="Digite apenas caracteres" required>
 							</div>
 						</div>
 					</div>
@@ -74,9 +74,9 @@
 					</div>
 					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="control-label col-lg-3" for="potencia">Potencia: </label>				
+							<label class="control-label col-lg-3" for="potencia">Potência: </label>				
 							<div class="col-lg-9">
-								<input class="form-control requerido" type="number" name="potencia" id="potencia" max="8" min="0" step="0.1" required>
+								<input class="form-control requerido" type="number" name="potencia" id="potencia" max="8" min="1" step="0.1" required>
 							</div>
 						</div>
 					</div>
@@ -89,7 +89,7 @@
 								<select class="form-control" name="combustivel" id="combustivel" required>
 									<option value="0" selected>Gasolina</option>
 									<option value="1">Etanol</option>
-									<option value="2">Flex(Gaso/Etan)</option>
+									<option value="2">Flex(Gasolina/Etanol)</option>
 									<option value="3">Diesel</option>
 									<option value="4">Gás Natural</option>
 								</select>
@@ -103,7 +103,7 @@
 					</div>
 					<div class="col-lg-4">
 						<div class="checkbox">
-						  	<label><input type="checkbox" name="direcao" id="direcao">Direção Hidraulica</label>
+						  	<label><input type="checkbox" name="direcao" id="direcao">Direção Hidráulica</label>
 						</div>
 					</div>
 				</div>				
@@ -112,7 +112,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-2" for="avarias">Avarias: </label>					
 							<div class="col-lg-10">							
-								<textarea class="form-control" name="avarias" id="avarias" placeholder="ex: Arranhões e amassados na porta direita" style="resize: none; width: 100%;"></textarea>
+								<textarea class="form-control" name="avarias" id="avarias" placeholder="Ex: Arranhões e amassados na porta direita" style="resize: none; width: 100%;"></textarea>
 							</div>
 						</div>
 					</div>
@@ -146,7 +146,7 @@
 				marca:$('#marca').val(),
 				modelo:$('#modelo').val(),
 				ano:$('#ano').val(),
-				placa:$('#placa').val(),
+				placa:$('#placa').cleanVal(),
 				odometro:$('#odometro').val(),
 				cor:$('#cor').val(),
 				chassi:$('#chassi').val(),

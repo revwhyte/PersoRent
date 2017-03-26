@@ -26,7 +26,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="cpf">CPF:</label>
 							<div class="col-lg-9">
-								<input class="form-control" type="text" name="cpf" id="cpf" placeholder="###.###.###-##">
+								<input class="form-control" type="text" name="cpf" id="cpf" placeholder="000.000.000-00">
 							</div>
 						</div>
 					</div>
@@ -34,7 +34,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="cep">CEP: </label>						
 							<div class="col-lg-9">
-								<input class="form-control" type="text" name="cep" id="cep" placeholder="##.###-##">
+								<input class="form-control" type="text" name="cep" id="cep" placeholder="00.000-00">
 							</div>
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
-							<label class="control-label col-lg-2" for="endereco">Endereco: </label>					
+							<label class="control-label col-lg-2" for="endereco">Endereço: </label>					
 							<div class="col-lg-10">							
 								<textarea class="form-control" name="endereco" id="endereco" placeholder="ruas shurimenses" style="resize: none; width: 100%;"></textarea>
 							</div>
@@ -54,9 +54,9 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="control-label col-lg-3" for="numero">Numero de Serie: </label>
+							<label class="control-label col-lg-3" for="numero">Número de Serie: </label>
 							<div class="col-lg-9">							
-								<input class="form-control" type="text" name="numero" id="numero">
+								<input class="form-control" type="text" name="numero" id="numero" placeholder="Digite apenas números">
 							</div>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="categoria">Categoria: </label>
 							<div class="col-lg-9">							
-								<input class="form-control" type="text" name="categoria" id="categoria">
+								<input class="form-control" type="text" name="categoria" id="categoria" placeholder="A, B, AB, ...">
 							</div>
 						</div>
 					</div>
@@ -82,7 +82,7 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label class="control-label col-lg-3" for="agencia">Agencia: </label>				
+							<label class="control-label col-lg-3" for="agencia">Agência: </label>				
 							<div class="col-lg-9">
 								<input class="form-control" type="text" name="agencia" id="agencia">
 							</div>
@@ -103,7 +103,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
-							<label class="control-label col-lg-2" for="enderecoAgencia">Endereco da Agencia: </label>					
+							<label class="control-label col-lg-2" for="enderecoAgencia">Endereço da Agência: </label>					
 							<div class="col-lg-10">							
 								<textarea class="form-control" name="enderecoBanco" id="enderecoAgencia" placeholder="ruas shurimenses" style="resize: none; width: 100%;"></textarea>
 							</div>
@@ -128,8 +128,8 @@
 			acao:'adicionar',
 			nome:$('#nome').val(),
 			rg:$('#rg').val(),
-			cpf:$('#cpf').val(),
-			cep:$('#cep').val(),
+			cpf:$('#cpf').cleanVal(),
+			cep:$('#cep').cleanVal(),
 			endereco:$('#endereco').val(),
 			numero:$('#numero').val(),
 			categoria:$('#categoria').val(),
