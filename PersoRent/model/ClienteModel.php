@@ -61,6 +61,23 @@
             }
         }
 
+        public static function buscaClienteNome($dbh, $nome) {
+            try {
+                $sth = $dbh->prepare("SELECT nome, rg, cpf, endereco, cep, id_cnh, dados_bancarios_agencia, dados_bancarios_conta, dados_bancarios_digito FROM cliente WHERE nome = :nome");
+
+                $sth->bindParam(":nome", $cpf, PDO::PARAM_STR);
+                $sth->execute();
+
+                $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+                return $result;
+
+            } catch(PDOException $e) {
+                $e->getMessage();
+            }
+        }
+
+
         public static function retornaTodosClientes($dbh) {
             try {
                 $sth = $dbh->prepare("SELECT nome, rg, cpf, endereco, cep, id_cnh, dados_bancarios_agencia, dados_bancarios_conta, dados_bancarios_digito FROM cliente");

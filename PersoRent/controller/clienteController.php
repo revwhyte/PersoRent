@@ -123,6 +123,59 @@
 			else
 				echo '';
 		}
+
+		public static function readClienteNome($post){
+			$db = new Database();
+			$dados['nome'] = $post['nome'];
+			$dbh = $db->conectar();
+			$result = ClienteModel::buscaClienteNome($dbh,$dados['nome']);
+			$db->desconectar();
+			/*echo '<pre>';
+				var_dump($result[0]);
+			echo '</pre>';*/			
+			if($result){
+				$result=$result[0];
+				echo 
+					$result['nome'].'=>'.
+					$result['rg'].'=>'.
+					$result['cpf'].'=>'.
+					$result['cep'].'=>'.
+					$result['endereco'];
+				$dbh = $db->conectar();
+				$resultCnh = CNHModel::buscaCnh($dbh,$result['id_cnh']);
+				$db->desconectar();
+				if($resultCnh){
+					$resultCnh=$resultCnh[0];
+					echo 
+						'=>'.$resultCnh['numero'].'=>'.
+						$resultCnh['categoria'].'=>'.
+						$resultCnh['validade'];
+				}
+				else
+					echo 'erro';
+				$dados['agencia'] = $result['dados_bancarios_agencia'];
+				$dados['conta'] = $result['dados_bancarios_conta'];
+				$dados['digito'] = $result['dados_bancarios_digito'];
+				$dbh = $db->conectar();
+				$resultConta = DadosBancariosModel::buscaDadosBancarios($dbh,$dados);
+				$db->desconectar();
+				if($resultConta){
+					$resultConta=$resultConta[0];
+					echo 
+						'=>'.$resultConta['agencia'].'=>'.
+						$resultConta['conta'].'=>'.
+						$resultConta['digito'].'=>'.
+						$resultConta['endereco'];
+				}
+				else
+					echo 'erro';
+			}
+			else
+				echo '';
+		}
+
+
+
 		public static function readAllClienteCpf(){
 			$db = new Database();
 			$dbh = $db->conectar();
@@ -139,7 +192,36 @@
 			else
 				echo '';
 		}
+
+
+	public static function delCliente($post){
+				$db = new Database();
+				$dados['cpf'] = $post['cpf'];
+				$dbh = $db->conectar();
+				$result = ClienteModel::removeVeiculo($dbh, $dados['cpf']);
+				$db->desconectar();
+				if($result)
+					echo '<div class="alert alert-success alert-dismissable">
+							  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							  Dados excluídos com <strong>sucesso</strong>.
+							</div>';
+				else
+					echo '<div class="alert alert-danger alert-dismissable">
+							  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							  <strong>Erro!</strong> Dados nao puderam ser excluídos. Favor verificar se o banco está funcionando.
+							</div>';
+				}
+			}
+
+
+
+
+
 	}
+		
+
+
+
 	if (isset($_POST)&&isset($_POST['acao'])) {
 		switch ($_POST['acao']) {
 			case 'adicionar':
