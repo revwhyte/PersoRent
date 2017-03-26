@@ -194,24 +194,23 @@
 		}
 
 
-	public static function delCliente($post){
-				$db = new Database();
-				$dados['cpf'] = $post['cpf'];
-				$dbh = $db->conectar();
-				$result = ClienteModel::removeVeiculo($dbh, $dados['cpf']);
-				$db->desconectar();
-				if($result)
-					echo '<div class="alert alert-success alert-dismissable">
-							  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							  Dados excluídos com <strong>sucesso</strong>.
-							</div>';
-				else
-					echo '<div class="alert alert-danger alert-dismissable">
-							  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							  <strong>Erro!</strong> Dados nao puderam ser excluídos. Favor verificar se o banco está funcionando.
-							</div>';
-				}
-			}
+		public static function delCliente($post){
+			$db = new Database();
+			$dados['cpf'] = $post['cpf'];
+			$dbh = $db->conectar();
+			$result = ClienteModel::removeVeiculo($dbh, $dados['cpf']);
+			$db->desconectar();
+			if($result)
+				echo '<div class="alert alert-success alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  Dados excluídos com <strong>sucesso</strong>.
+						</div>';
+			else
+				echo '<div class="alert alert-danger alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  <strong>Erro!</strong> Dados nao puderam ser excluídos. Favor verificar se o banco está funcionando.
+						</div>';			
+		}
 
 
 

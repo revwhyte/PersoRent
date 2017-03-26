@@ -77,75 +77,75 @@
         }
 
 
-        public static function buscaVeiculoFiltros($dbh, $marca, $modelo, $ano, $placa, $portas, $arCondicionado, $direcao, $combustivel, $potencia) {
+        public static function buscaVeiculoFiltros($dbh, $dados) {
             try {
 
                 $consulta = "SELECT marca, modelo, ano, placa, odometro, chassi, portas, arCondicionado, direcao, combustivel, potencia, avarias, status FROM veiculo WHERE ";
                 $existeParametros = false;
 
-                if(isset($marca)){
+                if(isset($dados['marca'])){
                     $consulta .= "marca = :marca";
                     $existeParametros = true;
                 }
-                if(isset($modelo)){
+                if(isset($dados['modelo'])){
                     if($existeParametros){
-                         $consulta .= "AND modelo = :modelo";
+                         $consulta .= " AND modelo = :modelo";
                     } else{
                         $consulta .= "modelo = :modelo";
                         $existeParametros = true;
                     }
                 }
-                if(isset($ano)){
+                if(isset($dados['ano'])){
                     if($existeParametros){
-                         $consulta .= "AND ano = :ano";
+                         $consulta .= " AND ano = :ano";
                     }else {
                         $consulta .= "ano = :ano";
                         $existeParametros = true;
                     }
                 }
-                if(isset($placa)){
+                if(isset($dados['placa'])){
                     if($existeParametros){
-                         $consulta .= "AND placa = :placa";
+                         $consulta .= " AND placa = :placa";
                     } else {
                         $consulta .= "placa = :placa";
                         $existeParametros = true;
                     }
                 }
-                if(isset($portas)){
+                if(isset($dados['portas'])){
                     if($existeParametros){
-                         $consulta .= "AND portas = :portas";
+                         $consulta .= " AND portas = :portas";
                     } else {
                         $consulta .= "portas = :portas";
                         $existeParametros = true;
                     }
                 }
-                if(isset($arCondicionado)){
+                if(isset($dados['arCondicionado'])){
                     if($existeParametros){
-                         $consulta .= "AND arCondicionado = :arCondicionado";
+                         $consulta .= " AND arCondicionado = :arCondicionado";
                     } else {
                         $consulta .= "arCondicionado = :arCondicionado";
                         $existeParametros = true;
                     }
                 }
-                if(isset($direcao)){
+                if(isset($dados['direcao'])){
                     if($existeParametros){
-                         $consulta .= "AND direcao = :direcao";
+                         $consulta .= " AND direcao = :direcao";
                     } else {
                         $consulta .= "direcao = :direcao";
                         $existeParametros = true;
                     }
                 }
-                if(isset($combustivel)){
+                if(isset($dados['combustivel'])){
                     if($existeParametros){
-                         $consulta .= "AND combustivel = :combustivel";
+                         $consulta .= " AND combustivel = :combustivel";
                     } else { 
                         $consulta .= "combustivel = :combustivel";
                         $existeParametros = true;
                     }
                 }
-                if(isset($potencia)){
+                if(isset($dados['potencia'])){
                     if($existeParametros){
-                         $consulta .= "AND potencia = :potencia";
+                         $consulta .= " AND potencia = :potencia";
                     } else {
                         $consulta .= "potencia = :potencia";
                         $existeParametros = true;
@@ -155,32 +155,32 @@
 
                 $sth = $dbh->prepare($consulta);
 
-                if(isset($marca)){
-                     $sth->bindParam(":marca", $marca, PDO::PARAM_STR);
+                if(isset($dados['marca'])){
+                     $sth->bindParam(":marca", $dados['marca'], PDO::PARAM_STR);
                 }
-                if(isset($modelo)){
-                     $sth->bindParam(":modelo", $marca, PDO::PARAM_STR);
+                if(isset($dados['modelo'])){
+                     $sth->bindParam(":modelo", $dados['modelo'], PDO::PARAM_STR);
                 }
-                if(isset($ano)){
-                     $sth->bindParam(":ano", $marca, PDO::PARAM_INT);
+                if(isset($dados['ano'])){
+                     $sth->bindParam(":ano", $dados['ano'], PDO::PARAM_INT);
                 }
-                if(isset($placa)){
-                     $sth->bindParam(":placa", $marca, PDO::PARAM_STR);
+                if(isset($dados['placa'])){
+                     $sth->bindParam(":placa", $dados['placa'], PDO::PARAM_STR);
                 }
-                if(isset($portas)){
-                     $sth->bindParam(":portas", $marca, PDO::PARAM_INT);
+                if(isset($dados['portas'])){
+                     $sth->bindParam(":portas", $dados['portas'], PDO::PARAM_INT);
                 }
-                if(isset($arCondicionado)){
-                     $sth->bindParam(":arCondicionado", $marca, PDO::PARAM_BOOL);
+                if(isset($dados['arCondicionado'])){
+                     $sth->bindParam(":arCondicionado", $dados['arCondicionado'], PDO::PARAM_BOOL);
                 }
-                if(isset($direcao)){
-                     $sth->bindParam(":direcao", $marca, PDO::PARAM_BOOL);
+                if(isset($dados['direcao'])){
+                     $sth->bindParam(":direcao", $dados['direcao'], PDO::PARAM_BOOL);
                 }
-                if(isset($combustivel)){
-                     $sth->bindParam(":combustivel", $marca, PDO::PARAM_STR);
+                if(isset($dados['combustivel'])){
+                     $sth->bindParam(":combustivel", $dados['combustivel'], PDO::PARAM_STR);
                 }
-                if(isset($potencia)){
-                     $sth->bindParam(":potencia", $marca, PDO::PARAM_STR);
+                if(isset($dados['potencia'])){
+                     $sth->bindParam(":potencia", $dados['potencia'], PDO::PARAM_STR);
                 }
 
                

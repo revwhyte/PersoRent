@@ -69,6 +69,65 @@
 				echo '';
 		}
 
+		public static function readMarcaVeiculo(){
+			$db = new Database();
+			$dbh = $db->conectar();
+			$result = VeiculoModel::retornaTodosVeiculos($dbh);
+			$db->desconectar();
+			/*echo '<pre>';
+				var_dump($result[0]);
+			echo '</pre>'*/;
+			if($result){
+				foreach ($result as $veiculo) {
+					echo '<option value="'.$veiculo['marca'].'">'.$veiculo['marca'].'</option>';
+				}
+			}
+			else
+				echo '';
+		}
+
+		public static function readModeloVeiculo($post){
+			$db = new Database();
+			$dbh = $db->conectar();
+			$result = VeiculoModel::buscaVeiculoFiltros($dbh,$post);
+			$db->desconectar();
+			if($result){
+				foreach ($result as $veiculo) {
+					echo '<option value="'.$veiculo['modelo'].'">'.$veiculo['modelo'].'</option>';
+				}
+			}
+			else
+				echo '';
+		}
+
+		public static function readPortasVeiculo($post){
+			$db = new Database();
+			$dbh = $db->conectar();
+			$result = VeiculoModel::buscaVeiculoFiltros($dbh,$post);
+			$db->desconectar();
+			if($result){
+				foreach ($result as $veiculo) {
+					echo '<option value="'.$veiculo['portas'].'">'.$veiculo['portas'].'</option>';
+				}
+			}
+			else
+				echo '';
+		}
+
+		public static function readVeiculoFiltro($post){
+			$db = new Database();
+			$dbh = $db->conectar();
+			$result = VeiculoModel::buscaVeiculoFiltros($dbh,$post);
+			$db->desconectar();
+			if($result){
+				foreach ($result as $veiculo) {
+					echo '<option value="'.$veiculo['portas'].'">'.$veiculo['portas'].'</option>';
+				}
+			}
+			else
+				echo '';
+		}
+
 		public static function editVeiculo($post){
 			$db = new Database();
 			$marca = $post['marca'];
@@ -153,6 +212,17 @@
 				break;
 			case 'buscar':
 				VeiculoController::readVeiculo($_POST);
+				break;
+			case 'buscarTodosMarca':
+				VeiculoController::readMarcaVeiculo();
+			case 'buscarTodosModelo':
+				VeiculoController::readModeloVeiculo($_POST);
+				break;
+			case 'buscarTodosPorta':
+				VeiculoController::readPortasVeiculo($_POST);
+				break;
+			case 'buscarTodosFiltro':
+				VeiculoController::readVeiculoFiltro($_POST);
 				break;
 			case 'editar':
 				VeiculoController::editVeiculo($_POST);

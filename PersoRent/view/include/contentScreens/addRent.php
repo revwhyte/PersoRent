@@ -116,7 +116,7 @@
 			var aux = e.split('=>');
 			$('#clientResult').show();
 			$('#clientResult').html('<div class="well well-sm col-lg-12">Nome: '+aux[0]+' Cpf: '+aux[2]+'</div>');
-			$('#result').html(e);
+			//$('#result').html(e);
 		});
 	});	
 	$(document).ready(function(){
@@ -126,11 +126,32 @@
 			//$('#result').html(e);
 		});
 	});	
-	$(document).ready(function(){
-		$.post('../controller/veiculoController.php', {acao:'buscarTodosCpf'},function(e){
-			$('#cliente').html(e);
-			$('#cliente').change();
+	$('#marca').change(function(){
+		$.post('../controller/veiculoController.php', {acao:'buscarTodosModelo',marca:$('#marca').val()},function(e){
+			$('#modelo').html(e);
+			$('#modelo').change();
 			//$('#result').html(e);
+		});
+	});	
+	$(document).ready(function(){
+		$.post('../controller/veiculoController.php', {acao:'buscarTodosMarca'},function(e){
+			$('#marca').html(e);
+			$('#marca').change();
+			//$('#result').html(e);
+		});
+	});	
+	$('#modelo').change(function(){
+		$.post('../controller/veiculoController.php', {acao:'buscarTodosPorta',marca:$('#marca').val(), modelo:$('#modelo').val()},function(e){
+			$('#portas').html(e);
+			//$('#portas').change();
+			$('#result').html(e);
+		});
+	});	
+	$('#portas').change(function(){
+		$.post('../controller/veiculoController.php', {acao:'buscarTodosFiltro',marca:$('#marca').val(), modelo:$('#modelo').val(), portas:$('#portas').val()},function(e){
+			//$('#portas').html(e);
+			//$('#portas').change();
+			$('#result').html(e);
 		});
 	});
 	$('#alugarVeiculo').on('click',function(){
