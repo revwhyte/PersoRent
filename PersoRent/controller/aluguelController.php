@@ -9,8 +9,8 @@
 		
 		public static function addAluguel($post){
 			$db = new Database();
-			$dados['cpf'] = $post['cpf'];
-			$dados['chassi'] = $post['chassi'];
+			$dados['cliente_cpf'] = $post['cliente_cpf'];
+			$dados['veiculo_chassi'] = $post['veiculo_chassi'];
 			$dados['data_saida'] = $post['data_saida'];
 			$dados['data_devolucao'] = $post['data_devolucao'];
 			$dados['valor'] = $post['valor'];
@@ -19,7 +19,7 @@
 			$dados['status'] = false;
 			$dba = new AluguelModel($dados);
 			$dbh = $db->conectar();
-			$result = $dba->criaAluguel($dbh);
+			$result = $dba->criarAluguel($dbh);
 			$db->desconectar();
 			if($result)
 				echo '<div class="alert alert-success alert-dismissable">

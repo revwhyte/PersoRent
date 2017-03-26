@@ -151,8 +151,8 @@
 	$('#alugarVeiculo').on('click',function(){
 		$.post('../controller/aluguelController.php', {
 			acao:'adicionar',
-			cpf:$('#cliente').val(),
-			chassi:$('#chassi').val(),
+			cliente_cpf:$('#cliente').val(),
+			veiculo_chassi:$('input[name=chassi]:checked', '#formAddAluguel').val(),
 			data_saida:$('#data_saida').val(),
 			data_devolucao:$('#data_devolucao').val(),
 			valor:$('#valor').val()
