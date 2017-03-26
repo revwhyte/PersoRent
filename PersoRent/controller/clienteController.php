@@ -15,7 +15,7 @@
 			$dadosPessoa['dados_bancarios_agencia'] = '';
 			$dadosPessoa['dados_bancarios_conta'] = '';
 			$dadosPessoa['dados_bancarios_digito'] = '';
-			if(isset($post['agencia'])){
+			if(isset($post['agencia']) && $post['agencia'] != ''){
 				$dadosBanco['agencia'] = $post['agencia'];
 				$dadosBanco['conta'] = $post['conta'];
 				$dadosBanco['digito'] = $post['digito'];
@@ -68,11 +68,13 @@
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						  Dados inseridos com <strong>sucesso</strong>.
 						</div>';
-			else
+			else {
+				var_dump($result);
 				echo '<div class="alert alert-danger alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						  <strong>Erro!</strong> Dados nao puderam ser inseridos. Favor verificar se o cpf é único ou o banco está funcionando.
 						</div>';
+			}
 		}
 		public static function readClienteCpf($post){
 			$db = new Database();

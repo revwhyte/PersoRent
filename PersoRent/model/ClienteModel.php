@@ -19,14 +19,38 @@
             $this->endereco = $dados['endereco'];
             $this->cep = $dados['cep'];
             $this->id_cnh = $dados['id_cnh'];
-            $this->dados_bancarios_agencia = $dados['dados_bancarios_agencia'];
-            $this->dados_bancarios_conta = $dados['dados_bancarios_conta'];
-            $this->dados_bancarios_digito = $dados['dados_bancarios_digito'];
+            if(isset($dados['dados_bancarios_agencia'])) {
+                $this->dados_bancarios_agencia = $dados['dados_bancarios_agencia'];
+                $this->dados_bancarios_conta = $dados['dados_bancarios_conta'];
+                $this->dados_bancarios_digito = $dados['dados_bancarios_digito'];
+            } else {
+                $this->dados_bancarios_agencia = null;
+                $this->dados_bancarios_conta = null;
+                $this->dados_bancarios_digito = null;
+            }
         }
 
         public function criaCliente($dbh) {
             try {
-                $sth = $dbh->prepare("INSERT INTO cliente(nome, rg, cpf, endereco, cep, id_cnh, dados_bancarios_agencia, dados_bancarios_conta, dados_bancarios_digito) VALUES(:nome, :rg, :cpf, :endereco, :cep, :id_cnh, :dados_bancarios_agencia, :dados_bancarios_conta, :dados_bancarios_digito)");
+                $banco = false;
+                if(isset($this->dados_bancarios_agencia) && $this->dados_bancarios_agencia != '') {
+                    $banco = true;
+                }
+
+                $insert = "INSERT INTO cliente(nome, rg, cpf, endereco, cep, id_cnh";
+                if($banco) {
+                    $tem_conta = ", dados_bancarios_agencia, dados_bancarios_conta, dados_bancarios_digito";
+                    $tem_conta_binds = ", :dados_bancarios_agencia, :dados_bancarios_conta, :dados_bancarios_digito";
+                }
+                $valores = ") VALUES(:nome, :rg, :cpf, :endereco, :cep, :id_cnh";
+
+                $query = $insert;
+                if($banco) {
+                    $query .= $tem_conta . $valores . $tem_conta_binds;
+                } else {
+                    $query .= $valores;
+                }
+                $sth = $dbh->prepare($query . ")");
                 
                 $sth->bindParam(":nome", $this->nome, PDO::PARAM_STR);
                 $sth->bindParam(":rg", $this->rg, PDO::PARAM_STR);
@@ -34,9 +58,11 @@
                 $sth->bindParam(":endereco", $this->endereco, PDO::PARAM_STR);
                 $sth->bindParam(":cep", $this->cep, PDO::PARAM_STR);
                 $sth->bindParam(":id_cnh", $this->id_cnh, PDO::PARAM_INT);
-                $sth->bindParam(":dados_bancarios_agencia", $this->dados_bancarios_agencia, PDO::PARAM_INT);
-                $sth->bindParam(":dados_bancarios_conta", $this->dados_bancarios_conta, PDO::PARAM_INT);
-                $sth->bindParam(":dados_bancarios_digito", $this->dados_bancarios_digito, PDO::PARAM_INT);
+                if($banco) {
+                    $sth->bindParam(":dados_bancarios_agencia", $this->dados_bancarios_agencia, PDO::PARAM_INT);
+                    $sth->bindParam(":dados_bancarios_conta", $this->dados_bancarios_conta, PDO::PARAM_INT);
+                    $sth->bindParam(":dados_bancarios_digito", $this->dados_bancarios_digito, PDO::PARAM_INT);
+                }
                                
                 return $sth->execute();
 
@@ -115,7 +141,7 @@
             }
         }
 
-        public function removeVeiculo($dbh) {
+        public function removeCliente($dbh) {
             try {
                 $sth = $dbh->prepare("DELETE FROM cliente WHERE cpf = :cpf");
 
