@@ -43,12 +43,12 @@ CREATE TABLE IF NOT EXISTS `persorent`.`cliente` (
   CONSTRAINT `fk_cliente_dados_bancarios1`
     FOREIGN KEY (`dados_bancarios_agencia` , `dados_bancarios_conta` , `dados_bancarios_digito`)
     REFERENCES `persorent`.`dados_bancarios` (`agencia` , `conta` , `digito`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cliente_cnh1`
     FOREIGN KEY (`id_cnh`)
     REFERENCES `persorent`.`cnh` (`numero`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
