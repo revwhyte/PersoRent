@@ -42,6 +42,10 @@
 
             } catch (PDOException $e) {
                 $e->getMessage();
+
+            echo '<pre>';
+            var_dump($e);
+            echo '</pre>';
             }
         }
 

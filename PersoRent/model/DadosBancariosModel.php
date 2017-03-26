@@ -64,7 +64,7 @@
             }
         }
 
-        public function removeDadosBancarios($dbh) {
+        public static function removeDadosBancarios($dbh, $dados) {
             try {
                 $sth = $dbh->prepare("DELETE FROM dados_bancarios WHERE agencia = :agencia AND conta = :conta AND digito = :digito");
 

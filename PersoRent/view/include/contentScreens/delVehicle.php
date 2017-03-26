@@ -31,7 +31,7 @@
 		});
 		$('#chassiSearch').on('keyup',function(){
 			$('#delBuscar').fadeOut("slow");
-			$.post('../controller/teste.php', {chassi:$('#chassiSearch').val()},function(e){
+			$.post('../controller/veiculoController.php', {acao:'buscaRemover', chassi:$('#chassiSearch').val()},function(e){
 				if (e=='') {
 					$('#delBuscar').fadeOut("slow");
 				}
@@ -52,7 +52,7 @@
 		   	});
 		};
 		function deletar(chassi){
-			$.post('../controller/teste.php', {chassi:chassi},function(e){								
+			$.post('../controller/veiculoController.php', {acao:'remover', chassi:chassi},function(e){
 				$('#result').html(e);
 			});
 	   	};	

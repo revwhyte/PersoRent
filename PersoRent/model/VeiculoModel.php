@@ -363,24 +363,10 @@
             }
         }
 
-        public static function removeVeiculo($dbh) {
+        public static function removeVeiculo($dbh, $chassi) {
             try {
                 $sth = $dbh->prepare("DELETE FROM veiculo WHERE chassi = :chassi");
-
-                $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
-                $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
-                $sth->bindParam(":ano", $this->ano, PDO::PARAM_INT);
-                $sth->bindParam(":placa", $this->placa, PDO::PARAM_STR);
-                $sth->bindParam(":odometro", $this->odometro, PDO::PARAM_INT);
-                $sth->bindParam(":chassi", $this->chassi, PDO::PARAM_STR);
-                $sth->bindParam(":cor", $this->cor, PDO::PARAM_STR);
-                $sth->bindParam(":portas", $this->portas, PDO::PARAM_INT);
-                $sth->bindParam(":arCondicionado", $this->arCondicionado, PDO::PARAM_BOOL);
-                $sth->bindParam(":direcao", $this->direcao, PDO::PARAM_BOOL);
-                $sth->bindParam(":combustivel", $this->combustivel, PDO::PARAM_STR);
-                $sth->bindParam(":potencia", $this->potencia, PDO::PARAM_STR);
-                $sth->bindParam(":avarias", $this->avarias, PDO::PARAM_STR);
-                $sth->bindParam(":status", $this->status, PDO::PARAM_BOOL);
+                $sth->bindParam(":chassi", $chassi, PDO::PARAM_STR);
 
                 return $sth->execute();
                 

@@ -2,6 +2,8 @@
 	session_start();
 	require_once '../model/Database.php';
 	require_once '../model/ClienteModel.php';
+	require_once '../model/CNHModel.php';
+	require_once '../model/DadosBancariosModel.php';
 	/*require_once 'DadosBancariosController.php';
 	require_once 'DadosCarteiraController.php';*/
 
@@ -10,48 +12,55 @@
 		
 		public function addCliente($post){
 			$db = new Database();
-			$dadosPessoa['dadosBanco'] = '';
+			$dadosPessoa['dados_bancarios_agencia'] = '';
+			$dadosPessoa['dados_bancarios_conta'] = '';
+			$dadosPessoa['dados_bancarios_digito'] = '';
 			if(isset($post['agencia'])){
 				$dadosBanco['agencia'] = $post['agencia'];
 				$dadosBanco['conta'] = $post['conta'];
 				$dadosBanco['digito'] = $post['digito'];
 				$dadosBanco['endereco'] = $post['enderecoAgencia'];
 				$dbm = new DadosBancariosModel($dadosBanco);
-				$db->conectar();
-				$result = $dbm->criaDadosBancarios($db)
+				$dbh = $db->conectar();
+				$result = $dbm->criaDadosBancarios($dbh);
 				$db->desconectar();
-				if($result)
-					$dadosPessoa['dadosBanco'] = $result;
+				if($result){					
+					$dadosPessoa['dados_bancarios_agencia'] = $post['agencia'];
+					$dadosPessoa['dados_bancarios_conta'] = $post['conta'];
+					$dadosPessoa['dados_bancarios_digito'] = $post['digito'];
+				}
 				else
-					return 'false';
+					echo 'erroDadosBancarios';
 			}	
 			
 			$dadosCarteira['numero'] = $post['numero'];
 			$dadosCarteira['categoria'] = $post['categoria'];
 			$dadosCarteira['validade'] = $post['validade'];
-			$dbc = new DadosCarteiraModel($dadosCarteira);
-			$db->conectar();
-			$result = $dbc->criaDadosCarteira($db);
+			$dbc = new CNHModel($dadosCarteira);
+			$dbh = $db->conectar();
+			$result = $dbc->criaCNH($dbh);
 			$db->desconectar();
 			if($result)
-				$dadosPessoa['dadosCarteira'] = $result;
+				$dadosPessoa['id_cnh'] = $post['numero'];
 			else
-				return 'false';
+				echo 'erroCarteira'.$result;
 
 			$dadosPessoa['nome'] = $post['nome'];
 			$dadosPessoa['rg'] = $post['rg'];
 			$dadosPessoa['cpf'] = $post['cpf'];
 			$dadosPessoa['cep'] = $post['cep'];
 			$dadosPessoa['endereco'] = $post['endereco'];
-			$dadosPessoa['id_cnh'] = $post['id_cnh'];
+			echo '<pre>';
+			var_dump($dadosPessoa);
+			echo '</pre>';
 			$dbp = new ClienteModel($dadosPessoa);
-			$db->conectar();
-			$result = $dbp->criaCliente($db);
+			$dbh = $db->conectar();
+			$result = $dbp->criaCliente($dbh);
 			$db->desconectar();
 			if($result)
-				return 'true';
+				echo 'acerto';
 			else
-				return 'false';
+				echo 'erro';
 		}
 	}
 	if (isset($_POST)&&isset($_POST['acao'])) {

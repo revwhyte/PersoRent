@@ -124,7 +124,7 @@
 	<div id="result"></div>
 	<script>	
 	$('#cadastrarCliente').on('click',function(){
-		$.post('../controller/ClienteController.php', {
+		$.post('../controller/clienteController.php', {
 			acao:'adicionar',
 			nome:$('#nome').val(),
 			rg:$('#rg').val(),
@@ -140,7 +140,8 @@
 			enderecoAgencia:$('#enderecoAgencia').val()
 		},function(e){
 			$('#result').html(e);
-			$('#formAddCliente')[0].reset();
+				if(e.indexOf('success')>0)
+					$('#formAddCliente')[0].reset();
 		});
 	});
 	$('#voltar').on('click',function(){
