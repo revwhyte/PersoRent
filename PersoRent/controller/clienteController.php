@@ -69,7 +69,6 @@
 						  Dados inseridos com <strong>sucesso</strong>.
 						</div>';
 			else {
-				var_dump($result);
 				echo '<div class="alert alert-danger alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						  <strong>Erro!</strong> Dados nao puderam ser inseridos. Favor verificar se o cpf é único ou o banco está funcionando.
