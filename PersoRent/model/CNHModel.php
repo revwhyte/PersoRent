@@ -25,13 +25,14 @@
             }
         }
 
-        public static function buscaCNH($dbh, $dados) {
+        public static function buscaCNH($dbh, $cnh) {
             try {
-                $sth->prepare("SELECT numero, categoria, validade FROM cnh WHERE numero = :numero");
+                $sth = $dbh->prepare("SELECT numero, categoria, validade FROM cnh WHERE numero = :numero");
 
-                $sth->bindParam(":numero", $dados['numero'], PDO::PARAM_INT);
+                $sth->bindParam(":numero", $cnh, PDO::PARAM_INT);
+                $sth->execute();
 
-                $result = $sth->execute();
+                $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
                 return $result;
 

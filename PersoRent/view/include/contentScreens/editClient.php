@@ -167,7 +167,7 @@
 	$('#cpfSearch').on('keyup',function(){
 		$('#nomeSearch').val("");
 		$('#resultBuscar').fadeOut("slow");
-		$.post('../controller/teste.php', {cpf:$('#cpfSearch').val()},function(e){
+		$.post('../controller/clienteController.php', {acao:'buscarCpf', cpf:$('#cpfSearch').val()},function(e){
 			if (e=='') {
 				$('#editarCliente').fadeOut("slow");
 			}
@@ -189,7 +189,7 @@
 					$('#enderecoAgencia').val(aux[11]);
 				});
 			}
-			//$('#result').html(e);
+			$('#result').html(e);
 		});
 	});
 	$('#nomeSearch').on('keyup',function(){
@@ -203,7 +203,7 @@
 				$('#resultBuscar').fadeIn("slow");				
 				$('#resultBuscar').html(e);
 			}
-			//$('#result').html(e);
+			$('#result').html(e);
 		});
 	});	
 	function escolha(cpf){

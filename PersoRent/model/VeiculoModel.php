@@ -215,7 +215,7 @@
 		
 		 public function atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi) {
             try {
-                $sth = $dbh->prepare("UPDATE veiculo SET marca = :marca, modelo = :modelo, ano = :ano, placa = :placa, odometro = :odometro, cor = :cor, portas = :portas, arCondicionado = :arCondicionado, direcao = :direcao, combustivel = :combustivel, potencia = :potencia, avarias = :avarias, status = :status WHERE chassi = :chassi");
+                $sth = $dbh->prepare("UPDATE veiculo SET marca = :marca, modelo = :modelo, ano = :ano, placa = :placa, odometro = :odometro, cor = :cor, portas = :portas, arCondicionado = :arCondicionado, direcao = :direcao, combustivel = :combustivel, potencia = :potencia, avarias = :avarias WHERE chassi = :chassi");
 
 
                 $atualizar = "UPDATE veiculo SET ";
@@ -313,7 +313,7 @@
                     }
                 }
 
-                $consulta .= $fatualizar .$atualizarWhere;
+                $consulta = $atualizar .$atualizarWhere;
 
 
                 $sth = $dbh->prepare($consulta);

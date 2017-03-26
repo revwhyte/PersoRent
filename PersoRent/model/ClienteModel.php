@@ -42,14 +42,10 @@
 
             } catch (PDOException $e) {
                 $e->getMessage();
-
-            echo '<pre>';
-            var_dump($e);
-            echo '</pre>';
             }
         }
 
-        public static function buscaCliente($dbh, $chassi) {
+        public static function buscaClienteCpf($dbh, $cpf) {
             try {
                 $sth = $dbh->prepare("SELECT nome, rg, cpf, endereco, cep, id_cnh, dados_bancarios_agencia, dados_bancarios_conta, dados_bancarios_digito FROM cliente WHERE cpf = :cpf");
 

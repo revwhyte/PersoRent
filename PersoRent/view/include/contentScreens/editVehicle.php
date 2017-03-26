@@ -87,9 +87,9 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label class="control-label col-lg-3" for="qtdPorta">Qtd. Portas: </label>				
+								<label class="control-label col-lg-3" for="portas">Qtd. Portas: </label>				
 								<div class="col-lg-9">
-									<input class="form-control" type="number" name="qtdPorta" id="qtdPorta" max="4" min="0">
+									<input class="form-control" type="number" name="portas" id="portas" max="4" min="0">
 								</div>
 							</div>
 						</div>
@@ -119,7 +119,7 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="checkbox">
-							  	<label><input type="checkbox" name="ar" id="ar">Ar Condicionado</label>
+							  	<label><input type="checkbox" name="arCondicionado" id="arCondicionado">Ar Condicionado</label>
 							</div>
 						</div>
 						<div class="col-lg-4">
@@ -182,10 +182,10 @@
 					$('#odometro').val(aux[4]);
 					$('#cor').val(aux[5]);
 					$('#chassi').val(aux[6]);
-					$('#qtdPorta').val(aux[7]);
+					$('#portas').val(aux[7]);
 					$('#potencia').val(aux[8]);
 					$('#combustivel').val(aux[9]);
-					$('#ar').prop('checked', aux[10]);
+					$('#arCondicionado').prop('checked', aux[10]);
 					$('#direcao').prop('checked', aux[11]);
 					$('#avarias').val(aux[12]);
 					$('#status').prop('checked', aux[13]);
@@ -219,6 +219,7 @@
 				arCondicionado:$('#arCondicionado').prop('checked'),
 				direcao:$('#direcao').prop('checked'),
 				avarias:$('#avarias').val(),
+				status:$('#status').prop('checked')
 			},function(e){
 				$('#result').html(e);
 				if(e.indexOf('success')>0)

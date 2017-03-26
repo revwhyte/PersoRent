@@ -71,23 +71,22 @@
 
 		public static function editVeiculo($post){
 			$db = new Database();
-			$dados['marca'] = $post['marca'];
-			$dados['modelo'] = $post['modelo'];
-			$dados['ano'] = $post['ano'];
-			$dados['placa'] = $post['placa'];
-			$dados['odometro'] = $post['odometro'];
-			$dados['cor'] = $post['cor'];
-			$dados['chassi'] = $post['chassi'];
-			$dados['portas'] = $post['portas'];
-			$dados['potencia'] = $post['potencia'];
-			$dados['combustivel'] = $post['combustivel'];
-			$dados['arCondicionado'] = $post['arCondicionado'];
-			$dados['direcao'] = $post['direcao'];
-			$dados['avarias'] = $post['avarias'];
-			$dados['status'] = $post['status'];			
-			$dbv = new VeiculoModel($dados);
+			$marca = $post['marca'];
+			$modelo = $post['modelo'];
+			$ano = $post['ano'];
+			$placa = $post['placa'];
+			$odometro = $post['odometro'];
+			$cor = $post['cor'];
+			$chassi = $post['chassi'];
+			$portas = $post['portas'];
+			$potencia = $post['potencia'];
+			$combustivel = $post['combustivel'];
+			$arCondicionado = $post['arCondicionado'];
+			$direcao = $post['direcao'];
+			$avarias = $post['avarias'];		
+			$dbv = new VeiculoModel($post);
 			$dbh = $db->conectar();
-			$result = $dbv->atualizaVeiculo($dbh);
+			$result = $dbv->atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi);
 			$db->desconectar();
 			if($result)
 				echo '<div class="alert alert-success alert-dismissable">
