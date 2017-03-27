@@ -125,7 +125,7 @@
 			$('#finalizarAluguel').fadeIn("slow");
 		});
 	});
-	$('#dataFinal').on('keyup',function(){
+	$('#dataFinal').on('change',function(){
 		$('#endBuscar').fadeOut("slow");
 		$.post('../controller/aluguelController.php', {acao:'buscaFinalizar', data_devolucao:$('#dataFinal').val()},function(e){
 			if (e=='') {

@@ -217,19 +217,19 @@
         }
 		
 		
-		 public function atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi) {
+		 public function atualizaVeiculo($dbh) {
             try {
                 $sth = $dbh->prepare("UPDATE veiculo SET marca = :marca, modelo = :modelo, ano = :ano, placa = :placa, odometro = :odometro, cor = :cor, portas = :portas, arCondicionado = :arCondicionado, direcao = :direcao, combustivel = :combustivel, potencia = :potencia, avarias = :avarias WHERE chassi = :chassi");
 
 
-                $atualizar = "UPDATE veiculo SET ";
+                /*$atualizar = "UPDATE veiculo SET ";
                 $atualizarWhere = " WHERE chassi = :chassi";            
 
-                if(isset($marca)){
-                    $atualizar = "marca = :marca";
+                if(isset($dados['marca'])){
+                    $atualizar .= "marca = :marca";
                     $existeParametros = true;
                 }
-                if(isset($modelo)){
+                if(isset($dados['modelo'])){
                     if($existeParametros){
                          $atualizar .= ", modelo = :modelo";
                     } else {
@@ -237,7 +237,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($ano)){
+                if(isset($dados['ano'])){
                     if($existeParametros){
                          $atualizar .= ", ano = :ano";
                     } else {
@@ -245,7 +245,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($placa)){
+                if(isset($dados['placa'])){
                     if($existeParametros){
                          $atualizar .= ", placa = :placa";
                     } else {
@@ -253,7 +253,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($odometro)){
+                if(isset($dados['odometro'])){
                     if($existeParametros){
                          $atualizar .= ", odometro = :odometro";
                     } else {
@@ -261,7 +261,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($cor)){
+                if(isset($dados['cor'])){
                     if($existeParametros){
                          $atualizar .= ", cor = :cor";
                     } else {
@@ -269,7 +269,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($portas)){
+                if(isset($dados['portas'])){
                     if($existeParametros){
                          $atualizar .= ", portas = :portas";
                     } else {
@@ -277,7 +277,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($arCondicionado)){
+                if(isset($dados['arCondicionado'])){
                     if($existeParametros){
                          $atualizar .= ", arCondicionado = :arCondicionado";
                     } else {
@@ -285,7 +285,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($direcao)){
+                if(isset($dados['direcao'])){
                     if($existeParametros){
                          $atualizar .= ", direcao = :direcao";
                     } else {
@@ -293,7 +293,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($combustivel)){
+                if(isset($dados['combustivel'])){
                     if($existeParametros){
                          $atualizar .= ", combustivel = :combustivel";
                     } else {
@@ -301,7 +301,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($potencia)){
+                if(isset($dados['potencia'])){
                     if($existeParametros){
                          $atualizar .= ", potencia = :potencia";
                     } else {
@@ -309,7 +309,7 @@
                         $existeParametros = true;
                     }
                 }
-                if(isset($avarias)){
+                if(isset($dados['avarias'])){
                     if($existeParametros){
                          $atualizar .= ", avarias = :avarias";
                     }else {
@@ -318,52 +318,72 @@
                 }
 
                 $consulta = $atualizar .$atualizarWhere;
+            echo '<pre>';
+                var_dump($consulta);
+            echo '</pre>';
 
 
                 $sth = $dbh->prepare($consulta);
 
-                if(isset($marca)){
+                if(isset($dados['marca'])){
                      $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
                 }
-                if(isset($modelo)){
+                if(isset($dados['modelo'])){
                     $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
                 }
-                if(isset($ano)){
+                if(isset($dados['ano'])){
                      $sth->bindParam(":ano", $this->ano, PDO::PARAM_INT);
                 }
-                if(isset($placa)){
+                if(isset($dados['placa'])){
                     $sth->bindParam(":placa", $this->placa, PDO::PARAM_STR);
                 }
-                if(isset($odometro)){
+                if(isset($dados['odometro'])){
                     $sth->bindParam(":odometro", $this->odometro, PDO::PARAM_INT);
                 }
-                if(isset($cor)){
+                if(isset($dados['cor'])){
                     $sth->bindParam(":cor", $this->cor, PDO::PARAM_STR);
                 }
-                if(isset($portas)){
+                if(isset($dados['portas'])){
                       $sth->bindParam(":portas", $this->portas, PDO::PARAM_INT);
                 }
-                if(isset($arCondicionado)){
+                if(isset($dados['arCondicionado'])){
                      $sth->bindParam(":arCondicionado", $this->arCondicionado, PDO::PARAM_BOOL);
                 }
-                if(isset($direcao)){
+                if(isset($dados['direcao'])){
                      $sth->bindParam(":direcao", $this->direcao, PDO::PARAM_BOOL);
                 }
-                if(isset($combustivel)){
+                if(isset($dados['combustivel'])){
                       $sth->bindParam(":combustivel", $this->combustivel, PDO::PARAM_STR);
                 }
-                if(isset($potencia)){
+                if(isset($dados['potencia'])){
                      $sth->bindParam(":potencia", $this->potencia, PDO::PARAM_STR);
                 }
-                if(isset($avarias)){
+                if(isset($dados['avarias'])){
                    $sth->bindParam(":avarias", $this->avarias, PDO::PARAM_STR);
                 }
 
+                $sth->bindParam(":chassi", $this->chassi, PDO::PARAM_STR);
+                return $sth->execute();*/
+                $sth->bindParam(":marca", $this->marca, PDO::PARAM_STR);
+                $sth->bindParam(":modelo", $this->modelo, PDO::PARAM_STR);
+                $sth->bindParam(":ano", $this->ano, PDO::PARAM_INT);
+                $sth->bindParam(":placa", $this->placa, PDO::PARAM_STR);
+                $sth->bindParam(":odometro", $this->odometro, PDO::PARAM_INT);
+                $sth->bindParam(":cor", $this->cor, PDO::PARAM_STR);
+                $sth->bindParam(":portas", $this->portas, PDO::PARAM_INT);
+                $sth->bindParam(":arCondicionado", $this->arCondicionado, PDO::PARAM_BOOL);
+                $sth->bindParam(":direcao", $this->direcao, PDO::PARAM_BOOL);
+                $sth->bindParam(":combustivel", $this->combustivel, PDO::PARAM_STR);
+                $sth->bindParam(":potencia", $this->potencia, PDO::PARAM_STR);
+                $sth->bindParam(":avarias", $this->avarias, PDO::PARAM_STR);
                 $sth->bindParam(":chassi", $this->chassi, PDO::PARAM_STR);
                 return $sth->execute();
 
             } catch(PDOException $e) {
                 $e->getMessage();
+            echo '<pre>';
+                var_dump($e);
+            echo '</pre>';
             }
         }
 

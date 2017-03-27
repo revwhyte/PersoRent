@@ -46,6 +46,8 @@
                 $sth = $dbh->prepare("UPDATE cnh SET numero = :numero, categoria = :categoria, validade = :validade WHERE numero = :numero");
 
                 $sth->bindParam(":numero", $this->numero, PDO::PARAM_INT);
+                $sth->bindParam(":categoria", $this->categoria, PDO::PARAM_STR);
+                $sth->bindParam(":validade", $this->validade, PDO::PARAM_STR);
 
                 return $sth->execute();
 

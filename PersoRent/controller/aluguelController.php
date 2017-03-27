@@ -81,6 +81,23 @@
 			else
 				echo '';
 		}
+		public static function atualizaAluguel($post){
+			$db = new Database();			
+			$dba = new AluguelModel($post);
+			$dbh = $db->conectar();
+			$result = $dba->atualizaAluguel($dbh,$post['id']);
+			$db->desconectar();			
+			if($result)
+				echo '<div class="alert alert-success alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  Dados atualizados com <strong>sucesso</strong>.
+						</div>';
+			else
+				echo '<div class="alert alert-danger alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  <strong>Erro!</strong> Dados nao puderam ser atualizados. Favor verificar se o banco está funcionando.
+						</div>';
+		}
 		public static function finalizaAluguel($post){
 			$db = new Database();
 			$post['status'] = true;			
@@ -114,6 +131,9 @@
 				break;
 			case 'buscaId':
 				AluguelController::buscaAluguelId($_POST);
+				break;
+			case 'editaAluguel':
+				AluguelController::atualizaAluguel($_POST);
 				break;
 			case 'finalizaAluguel':
 				AluguelController::finalizaAluguel($_POST);

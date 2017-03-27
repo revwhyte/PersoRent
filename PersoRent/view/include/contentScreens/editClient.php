@@ -56,7 +56,7 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3" for="cpf">CPF:</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" name="cpf" id="cpf" placeholder="###.###.###-##">
+									<input class="form-control" type="text" name="cpf" id="cpf" placeholder="###.###.###-##" readonly="">
 								</div>
 							</div>
 						</div>
@@ -86,7 +86,7 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3" for="numero">Numero de Serie: </label>
 								<div class="col-lg-9">							
-									<input class="form-control" type="text" name="numero" id="numero">
+									<input class="form-control" type="text" name="numero" id="numero" readonly="">
 								</div>
 							</div>
 						</div>
@@ -114,7 +114,7 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3" for="agencia">Agencia: </label>				
 								<div class="col-lg-9">
-									<input class="form-control" type="text" name="agencia" id="agencia">
+									<input class="form-control" type="text" name="agencia" id="agencia" readonly="">
 								</div>
 							</div>
 						</div>
@@ -122,10 +122,10 @@
 							<div class="form-group">
 								<label class="control-label col-lg-3" for="conta">Conta: </label>				
 								<div class="col-lg-7">
-									<input class="form-control" type="text" name="conta" id="conta">
+									<input class="form-control" type="text" name="conta" id="conta" readonly="">
 								</div>				
 								<div class="col-lg-2">
-									<input class="form-control" type="text" name="digito" id="digito" maxlength="1">
+									<input class="form-control" type="text" name="digito" id="digito" maxlength="1" readonly="">
 								</div>
 							</div>
 						</div>
@@ -151,9 +151,9 @@
 				</fieldset>
 			</div>	
 		</form>
-		<div id="result"></div>
 	</div>
 	<div class="form-horizontal" id="resultBuscar"></div>
+	<div id="result"></div>
 	<script>
 	$(document).ready(function() { 
 		$('#editarCliente').hide(); 
@@ -189,12 +189,12 @@
 					$('#enderecoAgencia').val(aux[11]);
 				});
 			}
-			$('#result').html(e);
+			//$('#result').html(e);
 		});
 	});
 	$('#nomeSearch').on('keyup',function(){
 		$('#cpfSearch').val("");
-		$.post('../controller/teste.php', {nome:$('#nomeSearch').val()},function(e){
+		$.post('../controller/clienteController.php', {acao:'buscaNome', nome:$('#nomeSearch').val()},function(e){
 			if (e=='') {
 				$('#editarCliente').fadeOut("slow");
 				$('#resultBuscar').fadeOut("slow");
@@ -203,13 +203,13 @@
 				$('#resultBuscar').fadeIn("slow");				
 				$('#resultBuscar').html(e);
 			}
-			$('#result').html(e);
+			//$('#result').html(e);
 		});
 	});	
 	function escolha(cpf){
 		$('#nomeSearch').val("");
 		$('#resultBuscar').fadeOut("slow");//alert(cpf);
-		$.post('../controller/teste.php', {cpf:cpf},function(e){
+		$.post('../controller/clienteController.php', {acao:'buscarCpf',cpf:cpf},function(e){
 			if (e=='') {
 				$('#editarCliente').fadeOut("slow");
 			}
@@ -231,11 +231,12 @@
 					$('#enderecoAgencia').val(aux[11]);
 				});
 			}
-			//$('#result').html(e);
+			//$('#result').hide();
 		});
 	};	
 	$('#botaoEditarCliente').on('click',function(){
-		$.post('../controller/teste.php', {
+		$.post('../controller/clienteController.php', {
+			acao:'editar',
 			nome:$('#nome').val(),
 			rg:$('#rg').val(),
 			cpf:$('#cpf').val(),
@@ -250,7 +251,8 @@
 			enderecoAgencia:$('#enderecoAgencia').val()
 		},function(e){
 			$('#result').html(e);
-			//$('#formEditCliente')[0].reset();
+			if(e.indexOf('success')>0)
+				$('#cancelar').click();
 		});
 	});
 	$('#voltar').on('click',function(){

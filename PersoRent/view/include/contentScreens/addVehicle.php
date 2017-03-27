@@ -140,7 +140,7 @@
 	}
 
 	$('#cadastrarVehicle').on('click',function(){
-		if(camposPreenchidos){		
+		if(camposPreenchidos){
 			$.post('../controller/veiculoController.php', {
 				acao: 'adicionar',
 				marca:$('#marca').val(),

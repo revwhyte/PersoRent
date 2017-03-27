@@ -61,15 +61,15 @@
             }
         }
 
-        public static function buscaClienteNome($dbh, $nome) {
+        public static function buscaClienteNome($dbh, $nome) {            
             try {
-                $sth = $dbh->prepare("SELECT nome, rg, cpf, endereco, cep, id_cnh, dados_bancarios_agencia, dados_bancarios_conta, dados_bancarios_digito FROM cliente WHERE nome = :nome");
-
-                $sth->bindParam(":nome", $cpf, PDO::PARAM_STR);
+                $sth = $dbh->prepare("SELECT nome, rg, cpf, endereco, cep, id_cnh, dados_bancarios_agencia, dados_bancarios_conta, dados_bancarios_digito FROM cliente WHERE nome LIKE :nome");
+                $nome = '%'.$nome.'%';
+                $sth->bindParam(":nome", $nome, PDO::PARAM_STR);
                 $sth->execute();
 
                 $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-
+            
                 return $result;
 
             } catch(PDOException $e) {
@@ -96,7 +96,7 @@
 		
 		 public function atualizaCliente($dbh) {
             try {
-                $sth = $dbh->prepare("UPDATE veiculo SET nome = :nome, rg = :rg, cpf = :cpf, endereco = :endereco, cep = :cep, id_cnh = :id_cnh, dados_bancarios_agencia = :dados_bancarios_agencia, dados_bancarios_conta = :dados_bancarios_conta, dados_bancarios_digito = :dados_bancarios_digito WHERE cpf = :cpf");
+                $sth = $dbh->prepare("UPDATE cliente SET nome = :nome, rg = :rg, cpf = :cpf, endereco = :endereco, cep = :cep, id_cnh = :id_cnh, dados_bancarios_agencia = :dados_bancarios_agencia, dados_bancarios_conta = :dados_bancarios_conta, dados_bancarios_digito = :dados_bancarios_digito WHERE cpf = :cpf");
 
                 $sth->bindParam(":nome", $this->nome, PDO::PARAM_STR);
                 $sth->bindParam(":rg", $this->rg, PDO::PARAM_STR);

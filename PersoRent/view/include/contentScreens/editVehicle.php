@@ -150,9 +150,9 @@
 				</fieldset>
 			</div>	
 		</form>
-		<div id="result"></div>
 	</div>
 	<div class="form-horizontal" id="resultBuscar"></div>
+	<div id="result"></div>
 	<script>
 	$(document).ready(function() { 
 		$('#editarVeiculo').hide(); 
@@ -185,13 +185,19 @@
 					$('#portas').val(aux[7]);
 					$('#potencia').val(aux[8]);
 					$('#combustivel').val(aux[9]);
-					$('#arCondicionado').prop('checked', aux[10]);
-					$('#direcao').prop('checked', aux[11]);
+					if(aux[10]=='1')
+						$('#arCondicionado').prop('checked', true);
+					else						
+						$('#arCondicionado').prop('checked', false);
+					if(aux[11]=='1')
+						$('#direcao').prop('checked', true);
+					else						
+						$('#direcao').prop('checked', false);
 					$('#avarias').val(aux[12]);
 					$('#status').prop('checked', aux[13]);
 				});
 			}
-			$('#result').html(e);
+			//$('#result').html(e);
 		});
 	});
 	function camposPreenchidos(){
@@ -223,7 +229,7 @@
 			},function(e){
 				$('#result').html(e);
 				if(e.indexOf('success')>0)
-					$('#formAddVehicle')[0].reset();
+					$('#cancelar').click();
 			});
 		}
 		else{

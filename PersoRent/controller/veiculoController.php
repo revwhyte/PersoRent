@@ -18,8 +18,14 @@
 			$dados['portas'] = $post['portas'];
 			$dados['potencia'] = $post['potencia'];
 			$dados['combustivel'] = $post['combustivel'];
-			$dados['arCondicionado'] = $post['arCondicionado'];
-			$dados['direcao'] = $post['direcao'];
+			if($post['arCondicionado']=='true')
+				$dados['arCondicionado'] = 1;
+			else
+				$dados['arCondicionado'] = 0;
+			if($post['direcao']=='true')
+				$dados['direcao'] = 1;
+			else
+				$dados['direcao'] = 0;
 			$dados['avarias'] = $post['avarias'];
 			$dados['status'] = true;			
 			$dbv = new VeiculoModel($dados);
@@ -153,33 +159,28 @@
 		}
 
 		public static function editVeiculo($post){
-			$db = new Database();
-			$marca = $post['marca'];
-			$modelo = $post['modelo'];
-			$ano = $post['ano'];
-			$placa = $post['placa'];
-			$odometro = $post['odometro'];
-			$cor = $post['cor'];
-			$chassi = $post['chassi'];
-			$portas = $post['portas'];
-			$potencia = $post['potencia'];
-			$combustivel = $post['combustivel'];
-			$arCondicionado = $post['arCondicionado'];
-			$direcao = $post['direcao'];
-			$avarias = $post['avarias'];		
+			$db = new Database();			
+			if($post['arCondicionado']=='true')
+				$post['arCondicionado'] = 1;
+			else
+				$post['arCondicionado'] = 0;
+			if($post['direcao']=='true')
+				$post['direcao'] = 1;
+			else
+				$post['direcao'] = 0;	
 			$dbv = new VeiculoModel($post);
 			$dbh = $db->conectar();
-			$result = $dbv->atualizaVeiculo($dbh, $marca, $modelo, $ano, $placa, $odometro, $cor, $portas, $arCondicionado, $direcao, $combustivel, $potencia, $avarias, $chassi);
+			$result = $dbv->atualizaVeiculo($dbh);
 			$db->desconectar();
 			if($result)
 				echo '<div class="alert alert-success alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						  Dados inseridos com <strong>sucesso</strong>.
+						  Dados atualizados com <strong>sucesso</strong>.
 						</div>';
 			else
 				echo '<div class="alert alert-danger alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						  <strong>Erro!</strong> Dados nao puderam ser inseridos. Favor verificar se o chassi é único ou o banco está funcionando.
+						  <strong>Erro!</strong> Dados nao puderam ser atualizados. Favor verificar se o chassi é único ou o banco está funcionando.
 						</div>';
 		}
 

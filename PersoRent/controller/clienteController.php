@@ -130,49 +130,22 @@
 			$dados['nome'] = $post['nome'];
 			$dbh = $db->conectar();
 			$result = ClienteModel::buscaClienteNome($dbh,$dados['nome']);
-			$db->desconectar();
-			/*echo '<pre>';
-				var_dump($result[0]);
-			echo '</pre>';*/			
+			$db->desconectar();			
 			if($result){
-				$result=$result[0];
-				echo 
-					$result['nome'].'=>'.
-					$result['rg'].'=>'.
-					$result['cpf'].'=>'.
-					$result['cep'].'=>'.
-					$result['endereco'];
-				$dbh = $db->conectar();
-				$resultCnh = CNHModel::buscaCnh($dbh,$result['id_cnh']);
-				$db->desconectar();
-				if($resultCnh){
-					$resultCnh=$resultCnh[0];
-					echo 
-						'=>'.$resultCnh['numero'].'=>'.
-						$resultCnh['categoria'].'=>'.
-						$resultCnh['validade'];
+				foreach ($result as $cliente) {
+					echo '<div class="row">
+						<div class="well well-sm col-lg-12" onclick="escolha(\''.$cliente['cpf'].'\')" id="\''.$cliente['cpf'].'\'">
+							<div class="col-lg-12">
+								<h3>'.'Nome: '.$cliente['nome'].'</h3>
+								CPF: '.$cliente['cpf'].'
+							</div>
+						</div>
+					</div>';
 				}
-				else
-					echo 'erro';
-				$dados['agencia'] = $result['dados_bancarios_agencia'];
-				$dados['conta'] = $result['dados_bancarios_conta'];
-				$dados['digito'] = $result['dados_bancarios_digito'];
-				$dbh = $db->conectar();
-				$resultConta = DadosBancariosModel::buscaDadosBancarios($dbh,$dados);
-				$db->desconectar();
-				if($resultConta){
-					$resultConta=$resultConta[0];
-					echo 
-						'=>'.$resultConta['agencia'].'=>'.
-						$resultConta['conta'].'=>'.
-						$resultConta['digito'].'=>'.
-						$resultConta['endereco'];
-				}
-				else
-					echo 'erro';
 			}
 			else
 				echo '';
+				
 		}
 
 
@@ -192,6 +165,71 @@
 			}
 			else
 				echo '';
+		}
+
+		public static function editCliente($post){
+			$db = new Database();
+			$dadosPessoa['dados_bancarios_agencia'] = '';
+			$dadosPessoa['dados_bancarios_conta'] = '';
+			$dadosPessoa['dados_bancarios_digito'] = '';
+			if(isset($post['agencia']) && $post['agencia'] != ''){
+				$dadosBanco['agencia'] = $post['agencia'];
+				$dadosBanco['conta'] = $post['conta'];
+				$dadosBanco['digito'] = $post['digito'];
+				$dadosBanco['endereco'] = $post['enderecoAgencia'];
+				$dbm = new DadosBancariosModel($dadosBanco);
+				$dbh = $db->conectar();
+				$result = $dbm->atualizaDadosBancarios($dbh);
+				$db->desconectar();
+				if($result){					
+					$dadosPessoa['dados_bancarios_agencia'] = $post['agencia'];
+					$dadosPessoa['dados_bancarios_conta'] = $post['conta'];
+					$dadosPessoa['dados_bancarios_digito'] = $post['digito'];
+				}
+				else
+					echo '<div class="alert alert-danger alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  <strong>Erro!</strong> Dados bancarios nao puderam ser atualizados. Favor verificar se o banco está funcionando.
+						</div>';
+			}				
+			$dadosCarteira['numero'] = $post['numero'];
+			$dadosCarteira['categoria'] = $post['categoria'];
+			$dadosCarteira['validade'] = $post['validade'];
+			$dbc = new CNHModel($dadosCarteira);
+			$dbh = $db->conectar();
+			$result = $dbc->atualizaCNH($dbh);
+			$db->desconectar();
+			if($result)
+				$dadosPessoa['id_cnh'] = $post['numero'];
+			else
+				echo '<div class="alert alert-danger alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  <strong>Erro!</strong> Dados da carteira nao puderam ser alterados. Favor verificar se o banco está funcionando.
+						</div>';
+
+			$dadosPessoa['nome'] = $post['nome'];
+			$dadosPessoa['rg'] = $post['rg'];
+			$dadosPessoa['cpf'] = $post['cpf'];
+			$dadosPessoa['cep'] = $post['cep'];
+			$dadosPessoa['endereco'] = $post['endereco'];
+			/*echo '<pre>';
+			var_dump($dadosPessoa);
+			echo '</pre>';*/
+			$dbp = new ClienteModel($dadosPessoa);
+			$dbh = $db->conectar();
+			$result = $dbp->atualizaCliente($dbh);
+			$db->desconectar();			
+			if($result)
+				echo '<div class="alert alert-success alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  Dados alterados com <strong>sucesso</strong>.
+						</div>';
+			else {
+				echo '<div class="alert alert-danger alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  <strong>Erro!</strong> Dados do cliente nao puderam ser alterados. Favor verificar se o banco está funcionando.
+						</div>';
+			}
 		}
 
 
@@ -232,6 +270,9 @@
 				break;
 			case 'buscarTodosCpf':
 				ClienteController::readAllClienteCpf();
+				break;
+			case 'buscaNome':
+				ClienteController::readClienteNome($_POST);
 				break;
 			case 'editar':
 				ClienteController::editCliente($_POST);
