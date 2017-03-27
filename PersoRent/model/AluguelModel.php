@@ -126,18 +126,19 @@
   
 
 
-   public function atualizaAluguel($dbh) {
+   public function atualizaAluguel($dbh, $id) {
               try {
-                  $sth = $dbh->prepare("UPDATE aluguel SET data_saida = :data_saida, data_devolucao = :data_devolucao, valor = :valor, multa = :multa, novas_avarias = :novas_avarias, status = :status, veiculo_chassi = :veiculo_chassi, cliente_cpf = :cliente_cpf WHERE cliente_cpf = :cliente_cpf and veiculo_chassi = :veiculo_chassi");
+                  $sth = $dbh->prepare("UPDATE aluguel SET data_saida = :data_saida, data_devolucao = :data_devolucao, valor = :valor, multa = :multa, novas_avarias = :novas_avarias, status = :status, veiculo_chassi = :veiculo_chassi, cliente_cpf = :cliente_cpf WHERE id = :id");
 
                   $sth->bindParam(":data_saida", $this->data_saida, PDO::PARAM_STR);
                   $sth->bindParam(":data_devolucao", $this->data_devolucao, PDO::PARAM_STR);
                   $sth->bindParam(":valor", $this->valor, PDO::PARAM_INT);
                   $sth->bindParam(":multa", $this->multa, PDO::PARAM_INT);
-                  $sth->bindParam(":novas_avarias", $this->novas_avarias, PDO::PARAM_BOOL);
-                  $sth->bindParam(":status", $this->status, PDO::PARAM_STR);
-                  $sth->bindParam(":veiculo_chassi", $this->id_veiculo, PDO::PARAM_INT);
-                  $sth->bindParam(":cliente_cpf", $this->id_cliente, PDO::PARAM_INT);
+                  $sth->bindParam(":novas_avarias", $this->novas_avarias, PDO::PARAM_STR);
+                  $sth->bindParam(":status", $this->status, PDO::PARAM_BOOL);
+                  $sth->bindParam(":veiculo_chassi", $this->veiculo_chassi, PDO::PARAM_INT);
+                  $sth->bindParam(":cliente_cpf", $this->cliente_cpf, PDO::PARAM_INT);
+                  $sth->bindParam(":id", $id, PDO::PARAM_INT);
 
                   return $sth->execute();
 

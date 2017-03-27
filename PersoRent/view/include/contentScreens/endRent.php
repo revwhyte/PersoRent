@@ -90,7 +90,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="checkbox">
-						  	<label><input type="checkbox" name="status" id="status">Status</label>
+						  	<label><input type="checkbox" name="status" id="status" disabled>Status</label>
 						</div>
 				</div>
 			<div class="row">	
@@ -98,7 +98,7 @@
 					<div class="form-group">
 						<label class="control-label col-lg-2" for="novas_avarias">Novas Avarias: </label>					
 							<div class="col-lg-10">							
-								<textarea class="form-control" name="novas_avarias" id="novas_avarias" placeholder="ruas shurimenses" style="resize: none; width: 100%;"></textarea>
+								<textarea class="form-control" name="novas_avarias" id="novas_avarias" placeholder="" style="resize: none; width: 100%;"></textarea>
 							</div>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 					<input type="button" class="btn btn-default" id="cancelar" value="Cancelar">
 				</div>
 				<div class="col-lg-offset-8 col-lg-2">
-					<input type="button" class="btn btn-success pull-right" id="botaoEditarCliente" value="Editar">
+					<input type="button" class="btn btn-success pull-right" id="botaoFinalizar" value="Finalizar">
 				</div>						
 			</div>
 		</fieldset>
@@ -154,9 +154,9 @@
 					$('#data_saida').val(aux[0]);
 					$('#data_devolucao').val(aux[1]);
 					$('#valor').val(aux[2]);
-					$('#multa').val(aux[3]);
+					/*$('#multa').val(aux[3]);
 					$('#novas_avarias').val(aux[4]);
-					$('#status').val(aux[5]);
+					$('#status').val(aux[5]);*/
 					$('#veiculo_chassi').val(aux[6]);
 					$('#cliente_cpf').val(aux[7]);
 					$('#id').val(aux[8]);
@@ -165,6 +165,24 @@
 			//$('#result').html(e);
 		});
 	};
+	$('#botaoFinalizar').on('click', function (){
+		$.post('../controller/aluguelController.php', {
+			acao:'finalizaAluguel',
+			data_saida:$('#data_saida').val(),
+			data_devolucao:$('#data_devolucao').val(),
+			valor:$('#valor').val(),
+			multa:$('#multa').val(),
+			novas_avarias:$('#novas_avarias').val(),
+			status:$('#status').val(),
+			veiculo_chassi:$('#veiculo_chassi').val(),
+			cliente_cpf:$('#cliente_cpf').val(),
+			id:$('#id').val()
+		},function(e){
+			$('#result').html(e);
+				if(e.indexOf('success')>0)
+					$('#cancelar').click();
+		});
+   	});
    	$('#voltar').on('click',function(){
 		$.post('../controller/redireciona.php', {page:this.value},function(e){
 			$('#content').html(e);
