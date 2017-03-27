@@ -43,18 +43,40 @@
 				foreach ($result as $aluguel) {
 					echo '
 					<div class="row">
-						<div class="well well-sm aluguel" onclick="escolha(\''.$i.'2345678\')">					
-							  / Data Saida: '.$veiculo['data_saida'].
-							' / Data Devolucao: '.$veiculo['data_devolucao'].
-							' / Valor: '.$veiculo['valor'].
-							' / Multa: '.$veiculo['multa'].
-							' / Novas Avarias: '.$veiculo['novas_avarias'].
-							' / Status: '.$veiculo['status'].
-							' / Veiculo Chassi: '.$veiculo['veiculo_chassi'].
-							' / Cliente CPF: '.$veiculo['cliente_cpf'].'
+						<div class="well well-sm aluguel" onclick="escolha(\''.$aluguel['id'].'\')">					
+							Data Saida: '.$aluguel['data_saida'].
+							' / Data Devolucao: '.$aluguel['data_devolucao'].
+							' / Valor: '.$aluguel['valor'].
+							' / Multa: '.$aluguel['multa'].
+							' / Novas Avarias: '.$aluguel['novas_avarias'].
+							' / Status: '.$aluguel['status'].
+							' / Veiculo Chassi: '.$aluguel['veiculo_chassi'].
+							' / Cliente CPF: '.$aluguel['cliente_cpf'].'
 						</div>
 					</div>';
 				}
+			}
+			else
+				echo '';
+		}
+		public static function buscaAluguelId($post){
+			$db = new Database();
+			$dados['id'] = $post['id'];
+			$dbh = $db->conectar();
+			$result = AluguelModel::buscarAluguelId($dbh,$dados['id']);
+			$db->desconectar();
+			if($result){
+				$result=$result[0];
+				echo 
+					$result['data_saida'].'=>'.
+					$result['data_devolucao'].'=>'.
+					$result['valor'].'=>'.
+					$result['multa'].'=>'.
+					$result['novas_avarias'].'=>'.
+					$result['status'].'=>'.
+					$result['veiculo_chassi'].'=>'.
+					$result['cliente_cpf'].'=>'.
+					$result['id'];
 			}
 			else
 				echo '';
@@ -71,6 +93,9 @@
 				break;
 			case 'buscaFinalizar':
 				AluguelController::buscaAluguel($_POST);
+				break;
+			case 'buscaId':
+				AluguelController::buscaAluguelId($_POST);
 				break;
 			
 			default:

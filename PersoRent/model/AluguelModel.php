@@ -50,9 +50,25 @@
     public static function buscarAluguelDataSaida($dbh, $data_saida) {
       try {
         //string de query
-        $sth = $dbh->prepare("SELECT data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_saida = :data_saida");
+        $sth = $dbh->prepare("SELECT id, data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_saida = :data_saida");
         // amarra parametros
         $sth->bindParam(":data_saida", $data_saida, PDO::PARAM_STR);
+        // executa query
+        $sth->execute();
+        // extrai resultados
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+      } catch(PDOException $e) {
+        $e->getMessage();
+      }
+    }
+
+    public static function buscarAluguelId($dbh, $id) {
+      try {
+        //string de query
+        $sth = $dbh->prepare("SELECT id, data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE id = :id");
+        // amarra parametros
+        $sth->bindParam(":id", $id, PDO::PARAM_STR);
         // executa query
         $sth->execute();
         // extrai resultados
@@ -66,7 +82,7 @@
     public static function buscarAluguelDataDevolucao($dbh, $data_devolucao) {
       try {
         //string de query
-        $sth = $dbh->prepare("SELECT data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_devolucao = :data_devolucao");
+        $sth = $dbh->prepare("SELECT id, data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_devolucao = :data_devolucao");
         // amarra parametros
         $sth->bindParam(":data_devolucao", $data_devolucao, PDO::PARAM_STR);
         // executa query
