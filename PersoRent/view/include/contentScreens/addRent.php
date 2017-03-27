@@ -71,6 +71,7 @@
 						</div>
 					</div>
 				</div>
+				<div class="row" id="resultCarro"></div>
 				<h4>Dados aluguel</h4>
 				<div class="row">
 					<div class="col-lg-4">
@@ -93,7 +94,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="valor">Valor: </label>
 							<div class="col-lg-9">
-								<input type="date" class="form-control" name="valor" id="valor" required>
+								<input type="text" class="form-control" name="valor" id="valor" required>
 							</div>
 						</div>
 					</div>
@@ -116,63 +117,49 @@
 			var aux = e.split('=>');
 			$('#clientResult').show();
 			$('#clientResult').html('<div class="well well-sm col-lg-12">Nome: '+aux[0]+' Cpf: '+aux[2]+'</div>');
-			//$('#result').html(e);
 		});
 	});	
 	$(document).ready(function(){
 		$.post('../controller/clienteController.php', {acao:'buscarTodosCpf'},function(e){
 			$('#cliente').html(e);
 			$('#cliente').change();
-			//$('#result').html(e);
 		});
 	});	
 	$('#marca').change(function(){
 		$.post('../controller/veiculoController.php', {acao:'buscarTodosModelo',marca:$('#marca').val()},function(e){
 			$('#modelo').html(e);
 			$('#modelo').change();
-			//$('#result').html(e);
 		});
 	});	
 	$(document).ready(function(){
 		$.post('../controller/veiculoController.php', {acao:'buscarTodosMarca'},function(e){
 			$('#marca').html(e);
 			$('#marca').change();
-			//$('#result').html(e);
 		});
 	});	
 	$('#modelo').change(function(){
 		$.post('../controller/veiculoController.php', {acao:'buscarTodosPorta',marca:$('#marca').val(), modelo:$('#modelo').val()},function(e){
 			$('#portas').html(e);
-			//$('#portas').change();
-			$('#result').html(e);
+			$('#portas').change();
 		});
 	});	
 	$('#portas').change(function(){
 		$.post('../controller/veiculoController.php', {acao:'buscarTodosFiltro',marca:$('#marca').val(), modelo:$('#modelo').val(), portas:$('#portas').val()},function(e){
-			//$('#portas').html(e);
-			//$('#portas').change();
-			$('#result').html(e);
+			$('#resultCarro').html(e);
 		});
 	});
 	$('#alugarVeiculo').on('click',function(){
 		$.post('../controller/aluguelController.php', {
-			acao:'adicionar'/*,
-			nome:$('#nome').val(),
-			rg:$('#rg').val(),
-			cpf:$('#cpf').val(),
-			cep:$('#cep').val(),
-			endereco:$('#endereco').val(),
-			numero:$('#numero').val(),
-			categoria:$('#categoria').val(),
-			validade:$('#validade').val(),
-			agencia:$('#agencia').val(),
-			conta:$('#conta').val(),
-			digito:$('#digito').val(),
-			enderecoAgencia:$('#enderecoAgencia').val()*/
+			acao:'adicionar',
+			cliente_cpf:$('#cliente').val(),
+			veiculo_chassi:$('input[name=chassi]:checked', '#formAddAluguel').val(),
+			data_saida:$('#data_saida').val(),
+			data_devolucao:$('#data_devolucao').val(),
+			valor:$('#valor').val()
 		},function(e){
 			$('#result').html(e);
 				if(e.indexOf('success')>0)
-					$('#formAddCliente')[0].reset();
+					$('#formAddAluguel')[0].reset();
 		});
 	});
 	$('#voltar').on('click',function(){

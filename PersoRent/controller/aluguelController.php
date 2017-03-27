@@ -9,69 +9,80 @@
 		
 		public static function addAluguel($post){
 			$db = new Database();
-			$dadosPessoa['dadosCliente'] = '';
-			if(isset($post['cpf'])){
-				$dadosPessoa['cpf'] = $post['cpf'];
-				$dadosPessoa['rg'] = $post['rg'];
-				$dadosPessoa['nome'] = $post['nome'];
-				$dadosPessoa['endereco'] = $post['endereco'];
-				$dadosPessoa['cep'] = $post['cep'];
-				$dadosPessoa['id_cnh'] = $post['id_cnh'];
-
-				$dbp = new ClienteModel($dadosPessoa);
-				$db->conectar();
-				$result = $dbp->criaCliente($db)
-				$db->desconectar();
-				if($result)
-					$dadosAluguel['dadosCliente'] = $result;
-				else
-					return 'false';
-			}
-			$dadosVeiculo['dadosVeiculo'];	
-			if(isset($post['chassi'])){
-				$dadosVeiculo['marca'] = $post['marca'];
-				$dadosVeiculo['modelo'] = $post['modelo'];
-				$dadosVeiculo['ano'] = $post['ano'];
-				$dadosVeiculo['placa'] = $post['placa'];
-				$dadosVeiculo['odometro'] = $post['odometro'];
-				$dadosVeiculo['cor'] = $post['cor'];
-				$dadosVeiculo['chassi'] = $post['chassi'];
-				$dadosVeiculo['portas'] = $post['portas'];
-				$dadosVeiculo['potencia'] = $post['potencia'];
-				$dadosVeiculo['combustivel'] = $post['combustivel'];
-				$dadosVeiculo['arCondicionado'] = $post['arCondicionado'];
-				$dadosVeiculo['direcao'] = $post['direcao'];
-				$dadosVeiculo['avarias'] = $post['avarias'];
-				$dadosVeiculo['status'] = true;	
-
-				$dbc = new ClienteModel($dadosPessoa);
-				$db->conectar();
-				$result = $dbc->criaCliente($db)
-				$db->desconectar();
-				if($result)
-					$dadosAluguel['dadosVeiculo'] = $result;
-				else
-					return 'false';	
-			}
-
-
-			$dadosAluguel['data_saida'] = $post['data_saida'];
-			$dadosAluguel['data_devolucao'] = $post['data_devolucao'];
-			$dadosAluguel['valor'] = $post['valor'];
-			$dadosAluguel['multa'] = $post['multa'];
-			$dadosAluguel['novas_avarias'] = $post['novas_avarias'];
-			$dadosAluguel['status'] = $post['status'];
-	
-			$dba = new AluguelModel($dadosAluguel);
+			$dados['cliente_cpf'] = $post['cliente_cpf'];
+			$dados['veiculo_chassi'] = $post['veiculo_chassi'];
+			$dados['data_saida'] = $post['data_saida'];
+			$dados['data_devolucao'] = $post['data_devolucao'];
+			$dados['valor'] = $post['valor'];
+			$dados['multa'] = '';
+			$dados['novas_avarias'] = '';
+			$dados['status'] = false;
+			$dba = new AluguelModel($dados);
 			$dbh = $db->conectar();
 			$result = $dba->criarAluguel($dbh);
 			$db->desconectar();
 			if($result)
-				return 'true';
+				echo '<div class="alert alert-success alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  Dados inseridos com <strong>sucesso</strong>.
+						</div>';
 			else
-				return 'false';
+				echo '<div class="alert alert-danger alert-dismissable">
+						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  <strong>Erro!</strong> Dados nao puderam ser inseridos. Favor verificar se o chassi é único ou o banco está funcionando.
+						</div>';
+		}
+
+		public static function buscaAluguel($post){
+			$db = new Database();
+			$dados['data_devolucao'] = $post['data_devolucao'];
+			$dbh = $db->conectar();
+			$result = AluguelModel::buscarAluguelDataDevolucao($dbh,$dados['data_devolucao']);
+			$db->desconectar();
+			if($result){
+				foreach ($result as $aluguel) {
+					echo '
+					<div class="row">
+						<div class="well well-sm aluguel" onclick="escolha(\''.$aluguel['id'].'\')">					
+							Data Saida: '.$aluguel['data_saida'].
+							' / Data Devolucao: '.$aluguel['data_devolucao'].
+							' / Valor: '.$aluguel['valor'].
+							' / Multa: '.$aluguel['multa'].
+							' / Novas Avarias: '.$aluguel['novas_avarias'].
+							' / Status: '.$aluguel['status'].
+							' / Veiculo Chassi: '.$aluguel['veiculo_chassi'].
+							' / Cliente CPF: '.$aluguel['cliente_cpf'].'
+						</div>
+					</div>';
+				}
+			}
+			else
+				echo '';
+		}
+		public static function buscaAluguelId($post){
+			$db = new Database();
+			$dados['id'] = $post['id'];
+			$dbh = $db->conectar();
+			$result = AluguelModel::buscarAluguelId($dbh,$dados['id']);
+			$db->desconectar();
+			if($result){
+				$result=$result[0];
+				echo 
+					$result['data_saida'].'=>'.
+					$result['data_devolucao'].'=>'.
+					$result['valor'].'=>'.
+					$result['multa'].'=>'.
+					$result['novas_avarias'].'=>'.
+					$result['status'].'=>'.
+					$result['veiculo_chassi'].'=>'.
+					$result['cliente_cpf'].'=>'.
+					$result['id'];
+			}
+			else
+				echo '';
 		}
 	}
+
 	if (isset($_POST)&&isset($_POST['acao'])) {
 		switch ($_POST['acao']) {
 			case 'adicionar':
@@ -80,8 +91,11 @@
 			case 'editar':
 				AluguelController::editAluguel($_POST);
 				break;
-			case 'remover':
-				AluguelController::delAluguel($_POST);
+			case 'buscaFinalizar':
+				AluguelController::buscaAluguel($_POST);
+				break;
+			case 'buscaId':
+				AluguelController::buscaAluguelId($_POST);
 				break;
 			
 			default:
