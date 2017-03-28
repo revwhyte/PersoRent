@@ -168,6 +168,9 @@
 					date1 = output.split('-');					
 					date1 = new Date(date1[0], date1[1], date1[2]);					
 					diff = ((date1-date2) / 1000 / 60 / 60 / 24);
+					if(diff<=0){
+						diff = 0;
+					}
 
 					$('#data_saida').val(aux[0]);
 					$('#data_devolucao').val(aux[1]);
