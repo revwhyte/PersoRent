@@ -56,11 +56,11 @@
             }
         }
 
-        public function removeCNH($dbh) {
+        public static function removeCNH($dbh, $numero) {
             try {
                 $sth = $dbh->prepare("DELETE FROM cnh WHERE numero = :numero");
 
-                $sth->bindParam(":numero", $this->numero, PDO::PARAM_INT);
+                $sth->bindParam(":numero", $numero, PDO::PARAM_INT);
 
                 return $sth->execute();
                 

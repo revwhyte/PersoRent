@@ -1,5 +1,6 @@
 <?php
-
+    require_once 'CNHModel.php';
+    require_once 'DadosBancariosModel.php';
     class ClienteModel {
         private $nome;
         private $rg;
@@ -117,18 +118,21 @@
 
         public function removeCliente($dbh, $cpf) {
             try {
+                $sth = $dbh->prepare("SELECT nome, rg, cpf, endereco, cep, id_cnh, dados_bancarios_agencia, dados_bancarios_conta, dados_bancarios_digito FROM cliente WHERE cpf = :cpf");
+
+                $sth->bindParam(":cpf", $cpf, PDO::PARAM_STR);
+                $sth->execute();
+
+                $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+                $result = $result[0];
+
+                CNHModel::removeCNH($dbh,$result['id_cnh']);
+                DadosBancariosModel::removeDadosBancarios($dbh,$result);
+
                 $sth = $dbh->prepare("DELETE FROM cliente WHERE cpf = :cpf");
 
-                /*$sth->bindParam(":nome", $this->nome, PDO::PARAM_STR);
-                $sth->bindParam(":rg", $this->rg, PDO::PARAM_STR);*/
                 $sth->bindParam(":cpf", $cpf, PDO::PARAM_STR);
-                /*$sth->bindParam(":endereco", $this->endereco, PDO::PARAM_STR);
-                $sth->bindParam(":cep", $this->cep, PDO::PARAM_STR);
-                $sth->bindParam(":id_cnh", $this->id_cnh, PDO::PARAM_INT);
-                $sth->bindParam(":dados_bancarios_agencia", $this->dados_bancarios_agencia, PDO::PARAM_INT);
-                $sth->bindParam(":dados_bancarios_conta", $this->dados_bancarios_conta, PDO::PARAM_INT);
-                $sth->bindParam(":dados_bancarios_digito", $this->dados_bancarios_digito, PDO::PARAM_INT);*/
-
                 return $sth->execute();
                 
             } catch(PDOException $e) {

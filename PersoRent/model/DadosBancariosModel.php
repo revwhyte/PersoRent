@@ -68,9 +68,9 @@
             try {
                 $sth = $dbh->prepare("DELETE FROM dados_bancarios WHERE agencia = :agencia AND conta = :conta AND digito = :digito");
 
-                $sth->bindParam(":agencia", $this->agencia, PDO::PARAM_INT);
-                $sth->bindParam(":conta", $this->conta, PDO::PARAM_INT);
-                $sth->bindParam(":digito", $this->digito, PDO::PARAM_INT);
+                $sth->bindParam(":agencia", $dados['dados_bancarios_agencia'], PDO::PARAM_INT);
+                $sth->bindParam(":conta", $dados['dados_bancarios_conta'], PDO::PARAM_INT);
+                $sth->bindParam(":digito", $dados['dados_bancarios_digito'], PDO::PARAM_INT);
 
                 return $sth->execute();
                 

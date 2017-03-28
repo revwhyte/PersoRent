@@ -118,9 +118,12 @@
 			$result = VeiculoModel::buscaVeiculoFiltros($dbh,$post);
 			$db->desconectar();
 			if($result){
+				$saida = '';
 				foreach ($result as $veiculo) {
-					echo '<option value="'.$veiculo['portas'].'">'.$veiculo['portas'].'</option>';
+					if(strpos($saida,$veiculo['portas'])===false)
+						$saida .= '<option value="'.$veiculo['portas'].'">'.$veiculo['portas'].'</option>';
 				}
+				echo $saida;
 			}
 			else
 				echo '';
@@ -137,6 +140,7 @@
 				foreach ($result as $veiculo) {
 					if($i==1)
 						$check = '';
+					$i++;
 					echo '<div class="row">
 						<div class="well well-sm col-lg-12" id="\''.$veiculo['chassi'].'\'">											
 							<div class="col-lg-1" id="div'.$veiculo['chassi'].'" style="margin-top: auto;margin-bottom: auto;">
