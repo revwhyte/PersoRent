@@ -101,9 +101,12 @@
 			$result = VeiculoModel::buscaVeiculoFiltros($dbh,$post);
 			$db->desconectar();
 			if($result){
+				$saida = '';
 				foreach ($result as $veiculo) {
-					echo '<option value="'.$veiculo['modelo'].'">'.$veiculo['modelo'].'</option>';
+					if(strpos($saida,$veiculo['modelo'])===false)
+						$saida.= '<option value="'.$veiculo['modelo'].'">'.$veiculo['modelo'].'</option>';
 				}
+				echo $saida;
 			}
 			else
 				echo '';
@@ -128,27 +131,36 @@
 			$dbh = $db->conectar();
 			$result = VeiculoModel::buscaVeiculoFiltros($dbh,$post);
 			$db->desconectar();
+			$i=0;
+			$check = ' checked';
 			if($result){
 				foreach ($result as $veiculo) {
+					if($i==1)
+						$check = '';
 					echo '<div class="row">
-						<div class="well well-sm col-lg-12" onclick="mostrar(\''.$veiculo['chassi'].'\')" id="\''.$veiculo['chassi'].'\'">											
+						<div class="well well-sm col-lg-12" id="\''.$veiculo['chassi'].'\'">											
 							<div class="col-lg-1" id="div'.$veiculo['chassi'].'" style="margin-top: auto;margin-bottom: auto;">
-								<input type="radio" name="chassi" value="'.$veiculo['chassi'].'">
+								<input class="valor" type="radio" name="chassi" value="'.$veiculo['chassi'].'" '.$check.'>
 							</div>
 							<div class="col-lg-9">
 								Chassi: '.$veiculo['chassi'].
 								' / Marca: '.$veiculo['marca'].
 								' / Modelo: '.$veiculo['modelo'].
-								' / ano: '.$veiculo['ano'].
-								' / placa: '.$veiculo['placa'].
-								' / odometro: '.$veiculo['odometro'].
-								' / cor: '.$veiculo['cor'].
-								' / chassi: '.$veiculo['chassi'].
-								' / portas: '.$veiculo['portas'].
-								' / potencia: '.$veiculo['potencia'].
-								' / combustivel: '.$veiculo['combustivel'].
-								' / arCondicionado: '.$veiculo['arCondicionado'].
-								' / direcao: '.$veiculo['direcao'].'
+								' / Ano: '.$veiculo['ano'].
+								' / Placa: '.$veiculo['placa'].
+								' / Odometro: '.$veiculo['odometro'].
+								' / Cor: '.$veiculo['cor'].
+								' / Chassi: '.$veiculo['chassi'].
+								' / Portas: '.$veiculo['portas'].
+								' / Potencia: '.$veiculo['potencia'].
+								' / Combustivel: '.VeiculoController::combustivel($veiculo['combustivel']).
+								' / Ar Condicionado: '.VeiculoController::booelano($veiculo['arCondicionado']).
+								' / Direcao Hidraulica: '.VeiculoController::booelano($veiculo['direcao']).'
+							</div>
+							<div hidden>
+								<input type="number" id="pot'.$veiculo['chassi'].'" value="'.$veiculo['potencia'].'">
+								<input type="number" id="ar'.$veiculo['chassi'].'" value="'.$veiculo['arCondicionado'].'">
+								<input type="number" id="dir'.$veiculo['chassi'].'" value="'.$veiculo['direcao'].'">
 							</div>
 						</div>
 					</div>';
@@ -228,6 +240,44 @@
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						  <strong>Erro!</strong> Dados nao puderam ser excluídos. Favor verificar se o banco está funcionando.
 						</div>';
+		}
+
+		public static function combustivel($tipo){
+			switch ($tipo) {
+				case '0':
+					return 'Gasolina';
+					break;
+				case '1':
+					return 'Etanol';
+					break;
+				case '2':
+					return 'Flex(Gasolina e Etanol)';
+					break;
+				case '3':
+					return 'Diesel';
+					break;
+				case '4':
+					return 'Gás Natural';
+					break;
+				
+				default:
+					# code...
+					break;
+			}
+		}
+		public static function booelano($tipo){
+			switch ($tipo) {
+				case '0':
+					return 'Não';
+					break;
+				case '1':
+					return 'Sim';
+					break;				
+				
+				default:
+					# code...
+					break;
+			}
 		}
 	}
 	if (isset($_POST)&&isset($_POST['acao'])) {

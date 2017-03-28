@@ -77,8 +77,11 @@
 		   	});
 		};
 		function deletar(cpf){
-			$.post('../controller/teste.php', {cpf:cpf},function(e){								
+			$.post('../controller/clienteController.php', {acao:'remover', cpf:cpf},function(e){								
 				$('#result').html(e);
+				if(e.indexOf('success')>0){									
+					$('#delBuscar').fadeOut("slow");
+				}
 			});
 	   	};	
    	$('#voltar').on('click',function(){

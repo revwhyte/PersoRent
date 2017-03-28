@@ -2,6 +2,7 @@
 	session_start();
 	require_once '../model/Database.php';
 	require_once '../model/AluguelModel.php';
+	require_once '../model/VeiculoModel.php';
 
 
 	class AluguelController
@@ -21,16 +22,21 @@
 			$dbh = $db->conectar();
 			$result = $dba->criarAluguel($dbh);
 			$db->desconectar();
-			if($result)
+			if($result){
 				echo '<div class="alert alert-success alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						  Dados inseridos com <strong>sucesso</strong>.
 						</div>';
-			else
+				$dbh = $db->conectar();
+				$result = VeiculoModel::alugaVeiculo($dbh,$dados['veiculo_chassi']);
+				$db->desconectar();
+			}
+			else{
 				echo '<div class="alert alert-danger alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						  <strong>Erro!</strong> Dados nao puderam ser inseridos. Favor verificar se o chassi é único ou o banco está funcionando.
 						</div>';
+			}
 		}
 
 		public static function buscaAluguel($post){
@@ -105,11 +111,15 @@
 			$dbh = $db->conectar();
 			$result = $dba->atualizaAluguel($dbh,$post['id']);
 			$db->desconectar();			
-			if($result)
+			if($result){
 				echo '<div class="alert alert-success alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						  Dados atualizados com <strong>sucesso</strong>.
-						</div>';
+						</div>';				
+				$dbh = $db->conectar();
+				$result = VeiculoModel::devolveVeiculo($dbh,$dados['veiculo_chassi']);
+				$db->desconectar();
+			}
 			else
 				echo '<div class="alert alert-danger alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

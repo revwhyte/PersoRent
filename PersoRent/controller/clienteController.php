@@ -241,9 +241,8 @@
 
 		public static function delCliente($post){
 			$db = new Database();
-			$dados['cpf'] = $post['cpf'];
 			$dbh = $db->conectar();
-			$result = ClienteModel::removeCliente($dbh, $dados['cpf']);
+			$result = ClienteModel::removeCliente($dbh, $post['cpf']);
 			$db->desconectar();
 			if($result)
 				echo '<div class="alert alert-success alert-dismissable">
@@ -254,17 +253,12 @@
 				echo '<div class="alert alert-danger alert-dismissable">
 						  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						  <strong>Erro!</strong> Dados nao puderam ser excluídos. Favor verificar se o banco está funcionando.
-						</div>';			
+						</div>';		
+
 		}
 
 
-
-
-
 	}
-		
-
-
 
 	if (isset($_POST)&&isset($_POST['acao'])) {
 		switch ($_POST['acao']) {

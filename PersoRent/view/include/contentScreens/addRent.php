@@ -28,7 +28,7 @@
 				</div>	
 				<h4>Escolha o veículo</h4>			
 				<div class="row">
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="marca">Marca: </label>
 							<div class="col-lg-9">
@@ -38,7 +38,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="modelo">Modelo: </label>
 							<div class="col-lg-9">
@@ -48,8 +48,6 @@
 							</div>
 						</div>
 					</div>
-				</div>							
-				<div class="row">
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="portas">Qtd. Portas: </label>
@@ -58,16 +56,6 @@
 									
 								</select>
 							</div>
-						</div>
-					</div>					
-					<div class="col-lg-4">
-						<div class="checkbox">
-						  	<label><input type="checkbox" name="arCondicionado" id="arCondicionado">Ar Condicionado</label>
-						</div>
-					</div>
-					<div class="col-lg-4">
-						<div class="checkbox">
-						  	<label><input type="checkbox" name="direcao" id="direcao">Direção Hidraulica</label>
 						</div>
 					</div>
 				</div>
@@ -78,7 +66,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="data_saida">Data Saída: </label>
 							<div class="col-lg-9">
-								<input type="date" class="form-control" name="data_saida" id="data_saida" required>
+								<input type="date" class="form-control valor" name="data_saida" id="data_saida" required>
 							</div>
 						</div>
 					</div>
@@ -86,7 +74,7 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="data_devolucao">Data Devolução: </label>
 							<div class="col-lg-9">
-								<input type="date" class="form-control" name="data_devolucao" id="data_devolucao" required>
+								<input type="date" class="form-control valor" name="data_devolucao" id="data_devolucao" required>
 							</div>
 						</div>
 					</div>					
@@ -147,6 +135,23 @@
 		$.post('../controller/veiculoController.php', {acao:'buscarTodosFiltro',marca:$('#marca').val(), modelo:$('#modelo').val(), portas:$('#portas').val()},function(e){
 			$('#resultCarro').html(e);
 		});
+	});
+	$('.valor').on('change',function(){
+		if($('#data_saida').val()!='' && $('#data_devolucao').val()!=''){
+			var date2 = $('#data_devolucao').val().split('-');
+			var date1 = $('#data_saida').val().split('-');
+			var date2 = new Date(date2[0], date2[1], date2[2]);
+			var date1 = new Date(date1[0], date1[1], date1[2]);
+			var diff = ((date2-date1) / 1000 / 60 / 60 / 24);
+			if(diff>0){
+				var chassi = $('input[name=chassi]:checked', '#formAddAluguel').val();
+				var pot = $('#pot'+chassi).val();
+				var ar = 1+(0.2*$('#ar'+chassi).val());
+				var direcao = 1+(0.15*$('#dir'+chassi).val());
+				var numero = (50*pot*ar*direcao)*diff;
+				$('#valor').val( (Math.round(numero * 100)/100).toFixed(2) );
+			}
+		}
 	});
 	$('#alugarVeiculo').on('click',function(){
 		$.post('../controller/aluguelController.php', {

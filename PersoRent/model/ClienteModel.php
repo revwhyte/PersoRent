@@ -115,24 +115,26 @@
             }
         }
 
-        public function removeCliente($dbh) {
+        public function removeCliente($dbh, $cpf) {
             try {
                 $sth = $dbh->prepare("DELETE FROM cliente WHERE cpf = :cpf");
 
-                $sth->bindParam(":nome", $this->nome, PDO::PARAM_STR);
-                $sth->bindParam(":rg", $this->rg, PDO::PARAM_STR);
-                $sth->bindParam(":cpf", $this->cpf, PDO::PARAM_STR);
-                $sth->bindParam(":endereco", $this->endereco, PDO::PARAM_STR);
+                /*$sth->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+                $sth->bindParam(":rg", $this->rg, PDO::PARAM_STR);*/
+                $sth->bindParam(":cpf", $cpf, PDO::PARAM_STR);
+                /*$sth->bindParam(":endereco", $this->endereco, PDO::PARAM_STR);
                 $sth->bindParam(":cep", $this->cep, PDO::PARAM_STR);
                 $sth->bindParam(":id_cnh", $this->id_cnh, PDO::PARAM_INT);
                 $sth->bindParam(":dados_bancarios_agencia", $this->dados_bancarios_agencia, PDO::PARAM_INT);
                 $sth->bindParam(":dados_bancarios_conta", $this->dados_bancarios_conta, PDO::PARAM_INT);
-                $sth->bindParam(":dados_bancarios_digito", $this->dados_bancarios_digito, PDO::PARAM_INT);
+                $sth->bindParam(":dados_bancarios_digito", $this->dados_bancarios_digito, PDO::PARAM_INT);*/
 
                 return $sth->execute();
                 
             } catch(PDOException $e) {
-                $e->getMessage();
+                $e->getMessage();echo '<pre>';
+            var_dump($e);
+            echo '</pre>';
             }
         }
 		

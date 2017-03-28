@@ -82,7 +82,7 @@
     public static function buscarAluguelDataDevolucao($dbh, $data_devolucao) {
       try {
         //string de query
-        $sth = $dbh->prepare("SELECT id, data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_devolucao = :data_devolucao");
+        $sth = $dbh->prepare("SELECT id, data_saida, data_devolucao, valor, multa, novas_avarias, status, veiculo_chassi, cliente_cpf FROM aluguel WHERE data_devolucao = :data_devolucao AND status = 0");
         // amarra parametros
         $sth->bindParam(":data_devolucao", $data_devolucao, PDO::PARAM_STR);
         // executa query

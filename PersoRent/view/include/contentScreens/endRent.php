@@ -90,7 +90,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="checkbox">
-						  	<label><input type="checkbox" name="status" id="status" disabled>Status</label>
+						  	<label><input type="checkbox" name="status" id="status" disabled>Status: Não finalizado</label>
 						</div>
 				</div>
 			<div class="row">	
@@ -151,11 +151,29 @@
 					$('#endBuscar').hide();
 					$('#dadosFinalizacao').fadeIn("slow");
 					var aux = e.split('=>');
+					var date2 = aux[1].split('-');
+					var date1 = aux[0].split('-');
+					date2 = new Date(date2[0], date2[1], date2[2]);
+					date1 = new Date(date1[0], date1[1], date1[2]);
+					var diff = ((date2-date1) / 1000 / 60 / 60 / 24);
+					var diaria = aux[2]/diff;
+
+					var d = new Date();
+					var month = d.getMonth()+1;
+					var day = d.getDate();
+					var output = d.getFullYear() + '-' +
+					    (month<10 ? '0' : '') + month + '-' +
+					    (day<10 ? '0' : '') + day;
+
+					date1 = output.split('-');					
+					date1 = new Date(date1[0], date1[1], date1[2]);					
+					diff = ((date1-date2) / 1000 / 60 / 60 / 24);
+
 					$('#data_saida').val(aux[0]);
 					$('#data_devolucao').val(aux[1]);
 					$('#valor').val(aux[2]);
-					/*$('#multa').val(aux[3]);
-					$('#novas_avarias').val(aux[4]);
+					$('#multa').val(diaria*1.2*diff);
+					/*$('#novas_avarias').val(aux[4]);
 					$('#status').val(aux[5]);*/
 					$('#veiculo_chassi').val(aux[6]);
 					$('#cliente_cpf').val(aux[7]);

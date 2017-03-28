@@ -90,7 +90,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="checkbox">
-						  	<label><input type="checkbox" name="status" id="status" disabled>Status</label>
+						  	<label><input type="checkbox" name="status" id="status" disabled>Status: Não finalizado</label>
 						</div>
 				</div>
 			<div class="row">	
