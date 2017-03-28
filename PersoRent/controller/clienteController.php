@@ -136,8 +136,14 @@
 					echo '<div class="row">
 						<div class="well well-sm col-lg-12" onclick="escolha(\''.$cliente['cpf'].'\')" id="\''.$cliente['cpf'].'\'">
 							<div class="col-lg-12">
-								<h3>'.'Nome: '.$cliente['nome'].'</h3>
-								CPF: '.$cliente['cpf'].'
+								<div class="col-lg-9">
+									<h3>'.'Nome: '.$cliente['nome'].'</h3>
+									CPF: '.$cliente['cpf'].'
+								</div>								
+								<div class="col-lg-3" id="div'.$cliente['cpf'].'" hidden>
+									<input type="button" class="btn btn-default cancelar" onclick="esconder(\''.$cliente['cpf'].'\')" id="canc'.$cliente['cpf'].'" value="Cancelar">
+									<input type="button" class="btn btn-danger confirmar" id="conf'.$cliente['cpf'].'" value="Confirmar" onclick="deletar(\''.$cliente['cpf'].'\')">
+								</div>
 							</div>
 						</div>
 					</div>';

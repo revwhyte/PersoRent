@@ -41,20 +41,23 @@
 		$('#cpfSearch').on('keyup',function(){
 			$('#nomeSearch').val("");
 			$('#delBuscar').fadeOut("slow");
-			$.post('../controller/teste.php', {cpf:$('#cpfSearch').val()},function(e){
+			$.post('../controller/clienteController.php', {acao:'buscarCpf', cpf:$('#cpfSearch').val()},function(e){
 				if (e=='') {
 					$('#delBuscar').fadeOut("slow");
 				}
 				else{					
-					$('#delBuscar').fadeIn("slow");				
-					$('#resultBuscar').html(e);
+					$('#delBuscar').fadeIn("slow");					
+					var aux = e.split('=>');
+					/*var well = '<div class="row"><div class="well well-sm col-lg-12" onclick="escolha(\''+aux[2]+'\')" id="\''+aux[2]+'\'"><div class="col-lg-12"><div class="col-lg-9"><h3>'.'Nome: '+aux[2]+'</h3>CPF: '+aux[2]+'</div><div class="col-lg-3" id="div'+aux[2]+'" hidden><input type="button" class="btn btn-default cancelar" onclick="esconder(\''+aux[2]+'\')" id="canc'+aux[2]+'" value="Cancelar"><input type="button" class="btn btn-danger confirmar" id="conf'+aux[2]+'" value="Confirmar" onclick="deletar(\''+aux[2]+'\')"></div></div></div></div>';*/
+					var well = '<div class="row"><div class="well well-sm col-lg-12" onclick="escolha(\''+aux[2]+'\')" id="\''+aux[2]+'\'"><div class="col-lg-12"><div class="col-lg-9"><h3>Nome: '+aux[0]+'</h3>CPF: '+aux[2]+'</div><div class="col-lg-3" id="div'+aux[2]+'" hidden><input type="button" class="btn btn-default cancelar" onclick="esconder(\''+aux[2]+'\')" id="canc'+aux[2]+'" value="Cancelar"><input type="button" class="btn btn-danger confirmar" id="conf'+aux[2]+'" value="Confirmar" onclick="deletar(\''+aux[2]+'\')"></div></div></div></div>';
+					$('#resultBuscar').html(well);
 				}
 				//$('#result').html(e);
 			});
 		});
 		$('#nomeSearch').on('keyup',function(){
 			$('#cpfSearch').val("");
-			$.post('../controller/teste.php', {nome:$('#nomeSearch').val()},function(e){
+			$.post('../controller/clienteController.php', {acao:'buscaNome', nome:$('#nomeSearch').val()},function(e){
 				if (e=='') {
 					$('#delBuscar').fadeOut("slow");
 				}
@@ -65,7 +68,7 @@
 				//$('#result').html(e);
 			});
 		});
-		function mostrar(cpf){
+		function escolha(cpf){
 			$('#div'+cpf).fadeIn("slow");
 		};			
 		function esconder(cpf){
